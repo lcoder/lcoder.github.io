@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript键盘事件 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="Javascript键盘事件
+keydown和keyup事件（低级事件），当用户在键盘上按下或者释放按键时，会发生keydown和keyup事件。它们由辅助键、功能键和字母键产生，如果用户按键时间足够长会导致它开始重复，那么keyup事件到达之前会收到多个keydown事件。
+事件对象有个数字属性keyCode，对于可打印字符，keyCode值时按键上出现的字符的Unicode编码。对于字母键，无">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript键盘事件">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/12/JavaScript键盘事件/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="Javascript键盘事件
+keydown和keyup事件（低级事件），当用户在键盘上按下或者释放按键时，会发生keydown和keyup事件。它们由辅助键、功能键和字母键产生，如果用户按键时间足够长会导致它开始重复，那么keyup事件到达之前会收到多个keydown事件。
+事件对象有个数字属性keyCode，对于可打印字符，keyCode值时按键上出现的字符的Unicode编码。对于字母键，无">
+<meta property="og:updated_time" content="2017-01-12T14:07:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript键盘事件">
+<meta name="twitter:description" content="Javascript键盘事件
+keydown和keyup事件（低级事件），当用户在键盘上按下或者释放按键时，会发生keydown和keyup事件。它们由辅助键、功能键和字母键产生，如果用户按键时间足够长会导致它开始重复，那么keyup事件到达之前会收到多个keydown事件。
+事件对象有个数字属性keyCode，对于可打印字符，keyCode值时按键上出现的字符的Unicode编码。对于字母键，无">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Javascript键盘事件"><span class="toc-text">Javascript键盘事件</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript键盘事件" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript键盘事件</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="Javascript键盘事件"><a href="#Javascript键盘事件" class="headerlink" title="Javascript键盘事件"></a>Javascript键盘事件</h2><ul>
+<li><em>keydown和keyup事件</em>（低级事件），当用户在键盘上按下或者释放按键时，会发生keydown和keyup事件。它们由辅助键、功能键和字母键产生，如果用户按键时间足够长会导致它开始重复，那么keyup事件到达之前会收到多个keydown事件。<ul>
+<li>事件对象有个数字属性keyCode，对于可打印字符，keyCode值时按键上出现的字符的Unicode编码。对于字母键，无论是否开启大写，总是返回大写的keyCode，数字键盘也一样，对于是否按下shift，返回的总是一样的。</li>
+<li>事件对象有altKey、ctrKey、metaKey、shiftKey属性，当对应的辅助键被按下，它们会被设置为true。</li>
+<li>3级dom事件草案，定义了新的事件对象属性key，它会以字符串的形式包含键名。如果是可打印字符，key属性仅仅是这个打印字符，如果是功能键，则会类似’F2’、’Home’、’Left’这样子的值。</li>
+</ul>
+</li>
+<li><em>keypress事件</em>（较高级事件）,它表示产生了一个可打印字符，表示输入的单个字符，以数字Unicode编码的形式，所以必须用String.fromCharCode()把它转换成字符串。<ul>
+<li>大多数浏览器，事件对象的keyCode属性指定了输入的字符编码。可用<code>var char = String.fromCharCode( event.keyCode )</code>获取字符。但是firefox使用的是charCode属性，获取字符需要<code>var char = String.fromCharCode( event.charCode )</code>，而且在firefox中，产生非打印字符时也触发keypress事件（大多数浏览器只有产生了可打印字符时，触发keypress事件），所以为了区分这种情况，可用存在charCode属性，但是值为0做检测。</li>
+</ul>
+</li>
+<li><em>textinput事件</em>（高级事件）,3级DOM事件规范草案定义，不管来源（例如：键盘、黏贴、或拖放形式的数据传输、亚洲语言输入法、声音或手写识别系统），无论何时用户输入文本时，都会触发。textinput事件尚未得到支持，但Webkit浏览器支持非常类似的<em>textInput</em>事件。规范的textinput事件和Webkit的textInput事件都有相似的事件对象：<ul>
+<li>事件对象有一个data属性，用于保存输入的文本。</li>
+<li>事件对象的inputMethod属性，用于指定输入源，不过尚未实现。</li>
+</ul>
+</li>
+</ul>
+<p>可通过取消textinput、textInput、和keypress事件来阻止字符的输入。一个例子，用来过滤用户输入</p>
+<p>例1-1:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">*InputFilter.js：不唐突地过滤＜input＞元素的键盘输入</div><div class="line">*</div><div class="line">*这个模块查找文档中拥有"data-allowed-chars"属性的所有＜input type="text"＞元素</div><div class="line">*它为所有这类元素都注册keypress、textInput和textinput事件处理程序，</div><div class="line">“*来限制用户只能输入出现在许可属性值中的字符</div><div class="line">*如果＜input＞元素也有一个"data-messageid"属性，</div><div class="line">*那么认为这个值是另一个文档元素的id</div><div class="line">*如果用户输入了不允许的字符，那么会显示消息元素</div><div class="line">*如果用户输入了允许的字符，那么会隐藏消息元素</div><div class="line">*这个信息id元素用于向用户说明拒绝输入的原因</div><div class="line">*它通常应该由CSS控制样式，所以它开始不可见</div><div class="line">*</div><div class="line">*下面是使用这个模块的HTML代码示例</div><div class="line">*邮政编码：＜input id="zip"type="text"</div><div class="line">*data-allowed-chars="0123456789"data-messageid="zipwarn"＞</div><div class="line">*＜span id="zipwarn"style="color:red;visibility:hidden"＞只支持数字＜/span＞</div><div class="line">*</div><div class="line">*这个模块相当地不唐突，它没有定义全局命名空间中的任何符号</div><div class="line">*/</div><div class="line">whenReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//当文档加载完毕时，运行这个函数</span></div><div class="line">    <span class="comment">//查找所有＜input＞元素</span></div><div class="line">    <span class="keyword">var</span> inputelts = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"input"</span>); <span class="comment">//遍历它们</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i＜ inputelts.length; i++) &#123;</div><div class="line">        <span class="keyword">var</span> elt = inputelts[i]; <span class="comment">//跳过不是文本域或没有data-allowed-chars属性的元素</span></div><div class="line">        <span class="keyword">if</span> (elt.type != <span class="string">"text"</span> || !elt.getAttribute(<span class="string">"data-allowed-chars"</span>))</div><div class="line">            <span class="keyword">continue</span>; </div><div class="line">        <span class="comment">//在input元素上注册事件处理程序函数</span></div><div class="line">        <span class="comment">//传统的keypress事件处理程序能够在任何地方运行</span></div><div class="line">        <span class="comment">//textInput（混合大小写）在2010年后Safari和Chrome支持</span></div><div class="line">        <span class="comment">//textinput（小写）是3级DOM事件规范草案中的版本</span></div><div class="line">        <span class="keyword">if</span> (elt.addEventListener) &#123;</div><div class="line">            elt.addEventListener(<span class="string">"keypress"</span>, filter, <span class="literal">false</span>);</div><div class="line">            elt.addEventListener(<span class="string">"textInput"</span>, filter, <span class="literal">false</span>);</div><div class="line">            elt.addEventListener(<span class="string">"textinput"</span>, filter, <span class="literal">false</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//不支持addEventListener()的IE也不会支持textinput</span></div><div class="line">            elt.attachEvent(<span class="string">"onkeypress"</span>, filter);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//这是用于过滤用户输入的keypress、textInput和textinput事件处理程序</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params">event</span>) </span>&#123; <span class="comment">//获取事件对象和目标元素对象</span></div><div class="line">        <span class="keyword">var</span> e = event || <span class="built_in">window</span>.event; <span class="comment">//标准或IE模型</span></div><div class="line">        <span class="keyword">var</span> target = e.target || e.srcElement; <span class="comment">//标准或IE模型</span></div><div class="line">        <span class="keyword">var</span> text = <span class="literal">null</span>; <span class="comment">//输入的文本</span></div><div class="line">        <span class="comment">//获取输入的字符或文本</span></div><div class="line">        <span class="keyword">if</span> (e.type === <span class="string">"textinput"</span> || e.type === <span class="string">"textInput"</span>) text = e.data;</div><div class="line">        <span class="keyword">else</span> &#123; <span class="comment">//这是传统的keypress事件</span></div><div class="line">            <span class="comment">//对于可打印键的keypress事件，Firefox使用charCode</span></div><div class="line">            <span class="keyword">var</span> code = e.charCode || e.keyCode; <span class="comment">//如果按下的是任何形式的功能键，不要过滤它</span></div><div class="line">            <span class="keyword">if</span> (code＜ <span class="number">32</span> || <span class="comment">//ASCII控制字符</span></div><div class="line">                e.charCode == <span class="number">0</span> || <span class="comment">//功能键（仅指Firefox）</span></div><div class="line">                e.ctrlKey || e.altKey) <span class="comment">//按下辅助键</span></div><div class="line">                <span class="keyword">return</span>; <span class="comment">//不过滤这个事件</span></div><div class="line">            <span class="comment">//把字符编码转化为字符串</span></div><div class="line">            <span class="keyword">var</span> text = <span class="built_in">String</span>.fromCharCode(code);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//现在需要从input元素中寻找所需信息</span></div><div class="line">        <span class="keyword">var</span> allowed = target.getAttribute(<span class="string">"data-allowed-chars"</span>); <span class="comment">//合法字符</span></div><div class="line">        <span class="keyword">var</span> messageid = target.getAttribute(<span class="string">"data-messageid"</span>); <span class="comment">//信息元素id</span></div><div class="line">        <span class="keyword">if</span> (messageid) <span class="comment">//如果存在消息元素id，那么获取这个元素</span></div><div class="line">            <span class="keyword">var</span> messageElement = <span class="built_in">document</span>.getElementById(messageid); <span class="comment">//遍历输入文本中的字符</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i＜ text.length; i++) &#123;</div><div class="line">            <span class="keyword">var</span> c = text.charAt(i);</div><div class="line">            <span class="keyword">if</span> (allowed.indexOf(c) == <span class="number">-1</span>) &#123; <span class="comment">//这是不允许的字符吗？</span></div><div class="line">                <span class="comment">//如果存在不合法字符，显示消息元素</span></div><div class="line">                <span class="keyword">if</span> (messageElement) messageElement.style.visibility = <span class="string">"visible"</span>; <span class="comment">//取消默认行为，所有不会插入文本</span></div><div class="line">                <span class="keyword">if</span> (e.preventDefault) e.preventDefault();</div><div class="line">                <span class="keyword">if</span> (e.returnValue) e.returnValue = <span class="literal">false</span>;</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//如果所有的字符都合法，隐藏存在的消息元素</span></div><div class="line">        <span class="keyword">if</span> (messageElement) messageElement.style.visibility = <span class="string">"hidden"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>keypress和textinput事件是在新输入的文本真正插入到聚焦的文档元素前触发，所以这些事件处理程序能够取消事件和组织文本插入。</p>
+<ul>
+<li><p>浏览器也实现了在文本插入到元素后才触发的input事件类型<em>input</em>。虽然这些事件不能取消，不能指定事件对象中的最新文本，但它们能以某种形式提供元素文本内容发生改变的通知。例如，想确保输入框中输入的任何文本都是大写的，可以，例1-2：<code>姓氏：＜input type=&quot;text&quot;oninput=&quot;this.value=this.value.toUpperCase();&quot;＞</code></p>
+<ul>
+<li><p>html5标准化了input，除IE外的浏览器都支持它。在IE中，可以使用不标准的<em>propertychange</em>事件检测文本输入元素的value属性改变来实现相似的效果。</p>
+<p>使用propertychange事件探测文本输入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">forceToUpperCase</span>(<span class="params">element</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">"string"</span>) element = <span class="built_in">document</span>.getElementById(element);</div><div class="line">    element.oninput = upcase;</div><div class="line">    element.onpropertychange = upcaseOnPropertyChange; <span class="comment">//简易案例：用于input事件的处理程序</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">upcase</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.value = <span class="keyword">this</span>.value.toUpperCase();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//疑难案例：用于propertychange事件的处理程序</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">upcaseOnPropertyChange</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> e = event || <span class="built_in">window</span>.event;                  <span class="comment">//如果value属性发生改变</span></div><div class="line">        <span class="keyword">if</span> (e.propertyName === <span class="string">"value"</span>) &#123;               <span class="comment">//移除onpropertychange处理程序，避免循环调用</span></div><div class="line">            <span class="keyword">this</span>.onpropertychange = <span class="literal">null</span>;               <span class="comment">//把值都变成大写</span></div><div class="line">            <span class="keyword">this</span>.value = <span class="keyword">this</span>.value.toUpperCase();      <span class="comment">//然后恢复原来的propertychange处理程序</span></div><div class="line">            <span class="keyword">this</span>.onpropertychange = upcaseOnPropertyChange;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考资料：</p>
+<p>《JavaScript权威指南》第六版 p670</p>
+<p><a href="http://www.quirksmode.org/dom/events/keys.html" target="_blank" rel="external">keydown, keypress, keyup</a></p>
+<p><a href="http://www.cnblogs.com/owenChen/p/3215421.html" target="_blank" rel="external">使用中文输入法时对键盘事件的处理</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="JavaScript键盘事件" data-url="http://www.maotingfeng.me/2017/01/12/JavaScript键盘事件/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

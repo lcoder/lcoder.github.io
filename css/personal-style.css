@@ -1,0 +1,10 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors supmain (mtingfeng@gmail.com)
+ * @date    2016-08-02 19:42:47
+ * @version $Id$
+ */
+.highlight table td.gutter { display: none; counter-reset: line_num ; }
+.highlight table td.gutter .line { color: #f7f7f7; }
+.highlight table td.gutter .line::before { color: #f00;counter-increment: line_num ;content: counter(line_num) ; }

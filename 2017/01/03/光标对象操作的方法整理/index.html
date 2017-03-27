@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>光标对象操作的方法整理 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="光标对象操作的方法整理123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光标对象操作的方法整理">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/03/光标对象操作的方法整理/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="光标对象操作的方法整理123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899">
+<meta property="og:updated_time" content="2017-01-02T23:28:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="光标对象操作的方法整理">
+<meta name="twitter:description" content="光标对象操作的方法整理123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#光标对象操作的方法整理"><span class="toc-text">光标对象操作的方法整理</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-光标对象操作的方法整理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">光标对象操作的方法整理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.03</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="光标对象操作的方法整理"><a href="#光标对象操作的方法整理" class="headerlink" title="光标对象操作的方法整理"></a>光标对象操作的方法整理</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _Range = &#123;</div><div class="line">    getRange: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> sel ;</div><div class="line">        <span class="keyword">if</span> (!<span class="built_in">window</span>.getSelection) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">null</span> ;</div><div class="line">        &#125;</div><div class="line">        sel = <span class="built_in">window</span>.getSelection();</div><div class="line">        <span class="keyword">if</span> (sel.rangeCount &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> sel.getRangeAt(<span class="number">0</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">null</span> ;</div><div class="line">        &#125;</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">//获取光标位置函数 不适合contenteditable元素，适用input</span></div><div class="line">    getCursortPosition: <span class="function"><span class="keyword">function</span> (<span class="params">ctrl</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> CaretPos = <span class="number">0</span>;                                                   <span class="comment">// IE Support</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">document</span>.selection) &#123;</div><div class="line">            ctrl.focus ();</div><div class="line">            <span class="keyword">var</span> Sel = <span class="built_in">document</span>.selection.createRange ();</div><div class="line">            Sel.moveStart (<span class="string">'character'</span>, -ctrl.value.length);</div><div class="line">            CaretPos = Sel.text.length;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (ctrl.selectionStart || ctrl.selectionStart == <span class="string">'0'</span>)        <span class="comment">// Firefox support</span></div><div class="line">            CaretPos = ctrl.selectionStart ;</div><div class="line">        <span class="keyword">return</span> (CaretPos);</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 设置光标位置函数 不适合contenteditable元素，适合input</span></div><div class="line">    setInputCaretPosition(ctrl, pos)&#123;</div><div class="line">        <span class="keyword">debugger</span>;</div><div class="line">        <span class="keyword">if</span>(ctrl.setSelectionRange) &#123;</div><div class="line">            ctrl.focus();</div><div class="line">            ctrl.setSelectionRange( pos , pos ) ;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ctrl.createTextRange) &#123;</div><div class="line">            <span class="keyword">var</span> range = ctrl.createTextRange();</div><div class="line">            range.collapse(<span class="literal">true</span>);</div><div class="line">            range.moveEnd(<span class="string">'character'</span>, pos);</div><div class="line">            range.moveStart(<span class="string">'character'</span>, pos);</div><div class="line">            range.select();</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// 光标的位置,光标的字符偏移量 适合contenteditable元素，不适合input</span></div><div class="line">    getCaretCharacterOffsetWithin: <span class="function"><span class="keyword">function</span>(<span class="params"> element , current_range </span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> caretOffset = <span class="number">0</span>;</div><div class="line">        <span class="keyword">var</span> doc = element.ownerDocument || element.document;</div><div class="line">        <span class="keyword">var</span> win = doc.defaultView || doc.parentWindow;</div><div class="line">        <span class="keyword">var</span> sel;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> win.getSelection != <span class="string">"undefined"</span>) &#123;</div><div class="line">            sel = win.getSelection();</div><div class="line">            <span class="keyword">if</span> (sel.rangeCount &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">var</span> range = current_range ? current_range : win.getSelection().getRangeAt(<span class="number">0</span>) ;</div><div class="line">                <span class="keyword">var</span> preCaretRange = range.cloneRange();</div><div class="line">                preCaretRange.selectNodeContents(element);</div><div class="line">                preCaretRange.setEnd(range.endContainer, range.endOffset);</div><div class="line">                caretOffset = preCaretRange.toString().length;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((sel = doc.selection) &amp;&amp; sel.type != <span class="string">"Control"</span>) &#123;</div><div class="line">            <span class="keyword">var</span> textRange = sel.createRange();</div><div class="line">            <span class="keyword">var</span> preCaretTextRange = doc.body.createTextRange();</div><div class="line">            preCaretTextRange.moveToElementText(element);</div><div class="line">            preCaretTextRange.setEndPoint(<span class="string">"EndToEnd"</span>, textRange);</div><div class="line">            caretOffset = preCaretTextRange.text.length;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> caretOffset;</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 设置光标位置函数  适合contenteditable元素 , 不适合input</span></div><div class="line">    setCaretPosition: <span class="function"><span class="keyword">function</span> (<span class="params"> node , textNode , caret </span>)</span>&#123;</div><div class="line">        node.focus();</div><div class="line">        <span class="keyword">var</span> range = <span class="built_in">document</span>.createRange();</div><div class="line"></div><div class="line">        range.setStart(textNode, caret);</div><div class="line">        range.setEnd(textNode, caret);</div><div class="line"></div><div class="line">        <span class="keyword">var</span> sel = <span class="built_in">window</span>.getSelection();</div><div class="line">        sel.removeAllRanges();</div><div class="line">        sel.addRange(range);</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 光标的像素位置  适合contenteditable元素 , 不适合input</span></div><div class="line">    getCursorOffset: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// 也可以直接，range.getBoundingClientRect()  不过我遇到过bug,推荐这个方法。</span></div><div class="line">        <span class="keyword">var</span> clonedRange, offset, range, rect, shadowCaret;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">window</span>.getSelection &amp;&amp; (range = <span class="keyword">this</span>.getRange())) &#123;</div><div class="line">            <span class="keyword">if</span> (range.endOffset - <span class="number">1</span> &gt; <span class="number">0</span> &amp;&amp; range.endContainer !== <span class="keyword">this</span>.domInputor) &#123;</div><div class="line">                clonedRange = range.cloneRange();</div><div class="line">                clonedRange.setStart(range.endContainer, range.endOffset - <span class="number">1</span>);</div><div class="line">                clonedRange.setEnd(range.endContainer, range.endOffset);</div><div class="line">                rect = clonedRange.getBoundingClientRect();</div><div class="line">                offset = &#123;</div><div class="line">                    height: rect.height,</div><div class="line">                    left: rect.left + rect.width,</div><div class="line">                    top: rect.top</div><div class="line">                &#125;;</div><div class="line">                clonedRange.detach();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (!offset || (offset != <span class="literal">null</span> ? offset.height : <span class="keyword">void</span> <span class="number">0</span>) === <span class="number">0</span>) &#123;</div><div class="line">                clonedRange = range.cloneRange();</div><div class="line">                shadowCaret = <span class="built_in">document</span>.createTextNode(<span class="string">"|"</span>);</div><div class="line">                clonedRange.insertNode(shadowCaret);</div><div class="line">                clonedRange.selectNode(shadowCaret);</div><div class="line">                rect = clonedRange.getBoundingClientRect();</div><div class="line">                offset = &#123;</div><div class="line">                    height: rect.height,</div><div class="line">                    left: rect.left,</div><div class="line">                    top: rect.top</div><div class="line">                &#125;;</div><div class="line">                shadowCaret.parentNode.removeChild(shadowCaret);</div><div class="line">                clonedRange.detach();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> offset;</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 获取光标所在的元素  适合contenteditable元素 , 不适合input</span></div><div class="line">    getSelectionStart: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="built_in">document</span>.getSelection().anchorNode ;</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 设置光标跳转最后 适合contenteditable元素 , 不适合input</span></div><div class="line">    moveToEnd : <span class="function"><span class="keyword">function</span>(<span class="params"> obj </span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">window</span>.getSelection) &#123;  <span class="comment">//ie11 10 9 ff safari</span></div><div class="line">            obj.focus();            <span class="comment">//解决ff不获取焦点无法定位问题</span></div><div class="line">            <span class="keyword">var</span> range = <span class="built_in">window</span>.getSelection();  <span class="comment">//创建range</span></div><div class="line">            range.selectAllChildren(obj);       <span class="comment">//range 选择obj下所有子内容</span></div><div class="line">            range.collapseToEnd();              <span class="comment">//光标移至最后</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.selection) &#123;          <span class="comment">//ie10 9 8 7 6 5</span></div><div class="line">            <span class="keyword">var</span> range = <span class="built_in">document</span>.selection.createRange();   <span class="comment">//创建选择对象</span></div><div class="line">            <span class="comment">//var range = document.body.createTextRange();</span></div><div class="line">            range.moveToElementText(obj);                   <span class="comment">//range定位到obj</span></div><div class="line">            range.collapse(<span class="literal">false</span>);                          <span class="comment">//光标移至最后</span></div><div class="line">            range.select();</div><div class="line">        &#125;</div><div class="line">    &#125; ,</div><div class="line">    <span class="comment">// 光标处插入内容 适合contenteditable元素 , 不适合input</span></div><div class="line">    insertHtmlAtCurrent: <span class="function"><span class="keyword">function</span>(<span class="params"> html , current_range </span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> sel, range;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">window</span>.getSelection) &#123;</div><div class="line">            sel = current_range ? current_range : <span class="built_in">window</span>.getSelection() ;</div><div class="line">            <span class="keyword">if</span> (sel.getRangeAt &amp;&amp; sel.rangeCount) &#123;</div><div class="line">                range = sel.getRangeAt(<span class="number">0</span>);</div><div class="line">                range.deleteContents();</div><div class="line">                <span class="keyword">var</span> el = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">                el.innerHTML = html;</div><div class="line">                <span class="keyword">var</span> frag = <span class="built_in">document</span>.createDocumentFragment(),</div><div class="line">                    node, lastNode;</div><div class="line">                <span class="keyword">while</span> ((node = el.firstChild)) &#123;</div><div class="line">                    lastNode = frag.appendChild(node);</div><div class="line">                &#125;</div><div class="line">                range.insertNode(frag);</div><div class="line">                <span class="keyword">if</span> (lastNode) &#123;</div><div class="line">                    range = range.cloneRange();</div><div class="line">                    range.setStartAfter(lastNode);</div><div class="line">                    range.collapse(<span class="literal">true</span>);</div><div class="line">                    sel.removeAllRanges();</div><div class="line">                    sel.addRange(range);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.selection &amp;&amp; <span class="built_in">document</span>.selection.type != <span class="string">"Control"</span>) &#123;</div><div class="line">            <span class="built_in">document</span>.selection.createRange().pasteHTML(html);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考网站：</p>
+<p>1、<a href="http://js8.in/2010/01/29/javascript%E8%8E%B7%E5%8F%96%E5%85%89%E6%A0%87%E4%BD%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E8%AE%BE%E7%BD%AE%E5%85%89%E6%A0%87%E4%BD%8D%E7%BD%AE/" target="_blank" rel="external">三水清 javascript获取光标位置以及设置光标位置</a></p>
+<p>2、<a href="http://www.html-js.com/article/2621" target="_blank" rel="external">Range及TextRange理解及区别</a> 这篇文章排版凌乱，如果需要操作TextRange之类的可以看看。</p>
+<p>3、<a href="https://imys.net/20161125/cursor-offset-at-input.html" target="_blank" rel="external">JavaScript 获取输入时的光标位置及场景问题</a> 这篇强烈推荐，质量很高。</p>
+<p>4、<a href="http://www.zhangxinxu.com/wordpress/2011/04/js-range-html%E6%96%87%E6%A1%A3%E6%96%87%E5%AD%97%E5%86%85%E5%AE%B9%E9%80%89%E4%B8%AD%E3%80%81%E5%BA%93%E5%8F%8A%E5%BA%94%E7%94%A8%E4%BB%8B%E7%BB%8D/" target="_blank" rel="external">JS Range HTML文档/文字内容选中、库及应用介绍</a></p>
+<p>5、<a href="https://segmentfault.com/a/1190000005869372" target="_blank" rel="external">html元素contenteditable属性如何定位光标和设置光标</a>一个例子。</p>
+<p>6、<a href="http://www.jb51.net/article/94012.htm" target="_blank" rel="external">textarea js实现的光标位置工具函数</a>这个也好凌乱，不过以上看完应该能有解决方案了。如果对于操作textarea input需求大的可以看这篇。</p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="光标对象操作的方法整理" data-url="http://www.maotingfeng.me/2017/01/03/光标对象操作的方法整理/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

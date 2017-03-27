@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>koa简介 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="koa简介初试koa，看了下官网介绍，记录一下学习心得。
+koa是致力于成为一个更小、更健壮、更富有表现力的 Web 框架。跟express相比，最核心的部分就是用新的async function 解决了回调函数的噩梦。
+比如用express实现一个计算程序处理时间的功能，用express写法，代码如下：
+1234567891011var express = require(&apos;express&apos;);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="koa简介">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/03/26/co模块源码解析/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="koa简介初试koa，看了下官网介绍，记录一下学习心得。
+koa是致力于成为一个更小、更健壮、更富有表现力的 Web 框架。跟express相比，最核心的部分就是用新的async function 解决了回调函数的噩梦。
+比如用express实现一个计算程序处理时间的功能，用express写法，代码如下：
+1234567891011var express = require(&apos;express&apos;);">
+<meta property="og:updated_time" content="2017-03-26T15:14:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="koa简介">
+<meta name="twitter:description" content="koa简介初试koa，看了下官网介绍，记录一下学习心得。
+koa是致力于成为一个更小、更健壮、更富有表现力的 Web 框架。跟express相比，最核心的部分就是用新的async function 解决了回调函数的噩梦。
+比如用express实现一个计算程序处理时间的功能，用express写法，代码如下：
+1234567891011var express = require(&apos;express&apos;);">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#koa简介"><span class="toc-text">koa简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#koa的代码级联"><span class="toc-text">koa的代码级联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Koa配置"><span class="toc-text">Koa配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app-listen-…-监听端口"><span class="toc-text">app.listen( … )监听端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app-callback"><span class="toc-text">app.callback()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app-use-middleWare"><span class="toc-text">app.use(middleWare)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app-context"><span class="toc-text">app.context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误处理"><span class="toc-text">错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Context"><span class="toc-text">Context</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Request"><span class="toc-text">Request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Response"><span class="toc-text">Response</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-co模块源码解析" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">koa简介</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.03.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="koa简介"><a href="#koa简介" class="headerlink" title="koa简介"></a>koa简介</h2><p>初试koa，看了下官网介绍，记录一下学习心得。</p>
+<p>koa是致力于成为一个更小、更健壮、更富有表现力的 Web 框架。跟express相比，最核心的部分就是用新的async function 解决了回调函数的噩梦。</p>
+<p>比如用express实现一个计算程序处理时间的功能，用express写法，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line">app.use( <span class="string">'/'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> req , res , next </span>)</span>&#123;</div><div class="line">  req.startTime = <span class="keyword">new</span> <span class="built_in">Date</span>() ;</div><div class="line">  next() ;</div><div class="line">&#125; ) ;</div><div class="line"></div><div class="line">app.use( <span class="string">'/'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> req , res , next </span>)</span>&#123;</div><div class="line">  req.endTime = <span class="keyword">new</span> <span class="built_in">Date</span>() ;</div><div class="line">  res.end( <span class="string">'time diff: '</span> + ( req.startTime - req.endTime ) + <span class="string">'ms'</span> ) ;</div><div class="line">&#125; ) ;</div></pre></td></tr></table></figure>
+<p>express的中间件形式，需要每个中间件手动调用next函数，把执行权限移交到下一个注册的中间件。</p>
+<p>如果用koa来写，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>( <span class="string">'koa'</span> ) ;</div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</div><div class="line">app.use(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">  <span class="keyword">await</span> next();</div><div class="line">  <span class="keyword">const</span> timeDiff = <span class="keyword">new</span> <span class="built_in">Date</span>() - startTime;</div><div class="line">  ctx.body = <span class="string">`time diff: <span class="subst">$&#123;timeDiff&#125;</span>ms`</span>;</div><div class="line">&#125;);</div><div class="line">app.listen(<span class="number">3001</span>);</div></pre></td></tr></table></figure>
+<p>相对而言，代码简单了很多。想要学习koa，先要学习一下基础知识点，async函数。</p>
+<h3 id="koa的代码级联"><a href="#koa的代码级联" class="headerlink" title="koa的代码级联"></a>koa的代码级联</h3><p>代码级联是通过async函数实现的（Koa v2.x 移除了内置的 Generator 支持，使用 async 函数替代），先简单介绍下async函数，语法很简单:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">// 函数体</span></div><div class="line">  <span class="keyword">var</span> data = <span class="keyword">await</span> fetchSomeThing() ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>async函数返回一个promise对象，所以可以使用then方法添加回调函数。当函数体执行的时候，遇到await的时候，会执行后面的表达式，表达式可以是原始值类型或者返回Promise对象。如果是个异步表达式的话，javascript会中断本次执行，执行其他内容。等异步执行结束，会返回到上次中断的地方，继续往下执行。</p>
+<p>比如，我想中断两秒钟，返回一个hello world！。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">delayTwoSeconds</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> result = <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>( ( resolve , reject )=&gt;&#123;</div><div class="line">        setTimeout( resolve.bind(<span class="literal">null</span>,<span class="string">'hello world!'</span>) , <span class="number">2000</span> ) ;</div><div class="line">    &#125; ) ;</div><div class="line">    <span class="keyword">return</span> result</div><div class="line">&#125;</div><div class="line">delayTwoSeconds().then( data=&gt;<span class="built_in">console</span>.log( data ) ) ;  <span class="comment">// 2m后，控制台：hello world!</span></div></pre></td></tr></table></figure>
+<p>当执行的时候，result并不会立即返回，而是等待2秒，然后返回。</p>
+<p>用async函数有什么好处？</p>
+<ul>
+<li>代码结构清晰，执行过程明了，避免了回调嵌套的代码</li>
+<li>函数的作用域得以保存，不再用callback( data ) 函数传参</li>
+<li>易于错误的捕获</li>
+</ul>
+<p>第三点,怎么错误捕获？平常如果异步回调函数执行的时候，一般都是在callback中，捕获错误 , 因为当执行异步操作的时候，异步函数代码执行完毕，javascript执行其他内容的时候，函数的资源会被垃圾回收，等事件机制通知回调函数的时候，原来的资源早已不在，所以如果发生错误，也是只能通过函数传参。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> callback = <span class="function"><span class="keyword">function</span>(<span class="params"> error , data </span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>( error ) &#123; <span class="keyword">throw</span> error ; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而使用async函数，因为函数只是暂停执行，里面的变量并不会被回收，所以可以继续使用。</p>
+<p>koa利用了async的特性，让嵌套中间件执行之后，不用通过绑定全局变量，或者在<code>request对象</code>上绑定属性来传参了，直接在函数体里面用之前定义的变量，方便了很多。koa的async调用机制的介绍完毕，下面是一些常用api的说明。</p>
+<h3 id="Koa配置"><a href="#Koa配置" class="headerlink" title="Koa配置"></a>Koa配置</h3><p>koa的应用程序配置默认在app实例上，目前支持</p>
+<ul>
+<li>app.env 默认为<code>NODE_ENV</code>，如果没有配置的话，为<code>&quot;development&quot;</code></li>
+<li>app.proxy 当设置为true时，支持 X-Forwarded-Host</li>
+<li>app.subdomainOffset 子域名偏移量，属性默认为2，如域名“tobi.ferrets.example.com” 执行：ctx.subdomains 返回[“ferrets”, “tobi”]，如果app.subdomainOffset设为3，则返回[“tobi”]。</li>
+</ul>
+<h3 id="app-listen-…-监听端口"><a href="#app-listen-…-监听端口" class="headerlink" title="app.listen( … )监听端口"></a>app.listen( … )监听端口</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</div><div class="line">app.listen(<span class="number">3000</span>);  <span class="comment">// 启动3000端口</span></div><div class="line"><span class="comment">// 等价于</span></div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</div><div class="line">http.createServer(app.callback()).listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<p>还是使用了node内置的http模块</p>
+<h3 id="app-callback"><a href="#app-callback" class="headerlink" title="app.callback()"></a>app.callback()</h3><p>执行这个函数返回的函数可以用于处理<code>http.createServer()</code>的请求，也可以用这个回调函数将你的koa应用挂载在express或者Connect应用中。</p>
+<h3 id="app-use-middleWare"><a href="#app-use-middleWare" class="headerlink" title="app.use(middleWare)"></a>app.use(middleWare)</h3><p>koa中这个方法很常用了，将给定的middleWare当作中间件加载到应用中。<code>middleWare</code>接受两个参数<code>ctx</code>和<code>next</code>,第一个参数是上下文，第二个参数是执行下一个中间件的回调。</p>
+<h3 id="app-context"><a href="#app-context" class="headerlink" title="app.context"></a>app.context</h3><p><code>app.context</code>是middleWare第一个参数ctx实例的原型。想要给ctx添加属性，可以直接编辑app.context。对于在应用程序中经常使用的属性或者函数，这个api非常有用。不过不建议过度依赖，毕竟类似全局变量，而全局变量是evil的😈。官网给的例子，比如数据库实例可以挂在到ctx上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.context.db = db();</div><div class="line">app.use(<span class="keyword">async</span> (ctx) =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(ctx.db);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>默认所有的错误都通过<code>stderr</code>输出，如果设置了<code>app.silent</code>为true的话，就不输出。当err.status是404或者err.expose等于true，则默认不输出。如果想自定义错误处理逻辑, 可以定义一个「错误事件」来监听 Koa app 中发生的错误：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.on(<span class="string">'error'</span>, err =&gt;</div><div class="line">  log.error(<span class="string">'server error'</span>, err)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>当 req/res 周期中出现任何错误且无法响应客户端时，Koa 会把 <code>Context</code>(上下文) 实例作为第二个参数传递给 error 事件。当错误发生时，如果还没有数据返回客户端，koa会响应500 内部错误给客户端，并且会触发app-level的<code>error</code>事件，可以用来记录日志。</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>一个koa的Context封装了node原生的request和response对象，提供了一些方便的API供应用程序开发。</p>
+<p>随着每个request请求，都会创建一个新的Context，当中间件被调用时，它会被会传到给每个中间件的第一个参数中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</div><div class="line">  ctx; <span class="comment">// is the Context</span></div><div class="line">  ctx.request; <span class="comment">// is a koa Request</span></div><div class="line">  ctx.response; <span class="comment">// is a koa Response</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>ctx中的很多访问器和方法，简单代理了ctx.request或者ctx.resposne ，因为有些高频API，直接代理了方便使用。比如<code>ctx.type</code>和<code>ctx.length</code>代理了response对象,<code>ctx.path</code>和<code>ctx.method</code>代理了request对象。</p>
+<ul>
+<li><p>ctx.req node的request对象</p>
+</li>
+<li><p>ctx.res node的resposne对象</p>
+<p>   避开koa，而直接操作node底层的response对象要避免。比如</p>
+<ul>
+<li>res.statusCode</li>
+<li>res.writeHead()</li>
+<li>res.write()</li>
+<li>res.end()</li>
+</ul>
+</li>
+<li><p>ctx.request koa的request对象</p>
+</li>
+<li><p>cox.response koa的response对象</p>
+</li>
+<li><p>ctx.state koa推荐挂载数据的地方，比如用户信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ctx.state.user = <span class="keyword">await</span> User.find(id) ;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ctx.app 应用程序实例</p>
+</li>
+<li><p>cox.throw 自定义状态码响应的方法。比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ctx.throw(403);</div><div class="line">ctx.throw(&apos;name required&apos;, 400);</div><div class="line">ctx.throw(400, &apos;name required&apos;);</div><div class="line">ctx.throw(&apos;something exploded&apos;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>cox.respond 如不想使用koa内置的response处理方法，可以设置this.respond=false，跳过koa针对response的预处理，你可以自己设置response对象。算是一种hack方法吧，一般不常用</p>
+<p>……</p>
+</li>
+</ul>
+<h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><p>简单介绍一下koa的request对象，一些常用的API</p>
+<ul>
+<li>request.header 请求头</li>
+<li>request.method 请求方法</li>
+<li>request.length 请求头的Context-Length</li>
+<li>request.originalUrl 获取request的originalUrl</li>
+<li>request.origin origin URL，包括，protocol和host</li>
+<li>request.path 请求路径</li>
+<li>request.querystring 查询参数 , 不包括？</li>
+<li>request.search 原始的query string，包括？</li>
+<li>request.query   结构化了的查询参数</li>
+</ul>
+<p>….</p>
+<h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><p>简单介绍一下koa的response对象，一些常用的API</p>
+<ul>
+<li>response.header  响应对象</li>
+<li>response.status   响应状态，默认无值</li>
+<li>response.message  响应消息，一般和状态码一起设置</li>
+<li>response.length  设置响应的大小</li>
+<li>response.body   返回响应内容</li>
+<li>response.get(field)   获取响应的头部字段</li>
+<li>response.set(field,value)  设置响应头的内容</li>
+<li>response.append(field,value)  追加额外的头部字段内容</li>
+<li>response.redirect( url , [alt] )  重定向，可以自定’back’，能提供Referrer支持，没有时，可用alt指定</li>
+<li>response.lastModified  如果响应头部包含Last-Modified，则用Date对象返回</li>
+</ul>
+<p>…..</p>
+<p>具体API可以查看本文后面的官网链接。</p>
+<p>最后介绍一个debug模块的使用</p>
+<p>通常我们开发环境需要使用console来打印调试一些内容，但是生产环境又不需要这些内容，可以使用debug模块，debug模块可以对log进行分组，而且只有设置了DEBUG的情况下，才会输出内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install debug</div></pre></td></tr></table></figure>
+<p>接下来在代码中引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> debug = <span class="built_in">require</span>(<span class="string">'debug'</span>)(<span class="string">'app'</span>);   <span class="comment">// 这里自定现实哪一块DEBUG的内容</span></div><div class="line">app.use(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"> ctx, next </span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> config = ctx.app ;</div><div class="line">    debug(<span class="string">'env: %s'</span>,config.env) ;</div><div class="line">    ctx.body = config.env;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>接下来就可以启动了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DEBUG=app node index.js</div></pre></td></tr></table></figure>
+<p>参考文档：</p>
+<p><a href="http://koajs.com/" target="_blank" rel="external">Koa next generation web framework for node.js</a></p>
+<p><a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6 入门</a></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="koa简介" data-url="http://www.maotingfeng.me/2017/03/26/co模块源码解析/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

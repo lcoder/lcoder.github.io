@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript对象详解 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript对象,对象的定义,创建对象," />
+  
+
+  <meta name="description" content="对象的定义
+创建对象
+属性的查询和设置
+删除属性
+检测属性
+枚举属性
+属性getter和setter
+属性的特性
+对象的三个属性
+序列化对象
+对象的方法
+
+对象的定义对象是javascript的基本数据类型，对象是一种复合值：它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值。对象也可看做是属性的无序集合，每个属性都是一个名/值对。这种基本数据结构有很多种叫法，比如散列（hash）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript对象详解">
+<meta property="og:url" content="http://www.maotingfeng.me/2016/08/27/javascript对象详解/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="对象的定义
+创建对象
+属性的查询和设置
+删除属性
+检测属性
+枚举属性
+属性getter和setter
+属性的特性
+对象的三个属性
+序列化对象
+对象的方法
+
+对象的定义对象是javascript的基本数据类型，对象是一种复合值：它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值。对象也可看做是属性的无序集合，每个属性都是一个名/值对。这种基本数据结构有很多种叫法，比如散列（hash）">
+<meta property="og:updated_time" content="2016-08-27T08:34:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript对象详解">
+<meta name="twitter:description" content="对象的定义
+创建对象
+属性的查询和设置
+删除属性
+检测属性
+枚举属性
+属性getter和setter
+属性的特性
+对象的三个属性
+序列化对象
+对象的方法
+
+对象的定义对象是javascript的基本数据类型，对象是一种复合值：它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值。对象也可看做是属性的无序集合，每个属性都是一个名/值对。这种基本数据结构有很多种叫法，比如散列（hash）">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的定义"><span class="toc-text">对象的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建对象"><span class="toc-text">创建对象</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-javascript对象详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">javascript对象详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <ul>
+<li><a href="#对象的定义">对象的定义</a></li>
+<li><a href="#创建对象">创建对象</a></li>
+<li><a href="#属性的查询和设置">属性的查询和设置</a></li>
+<li><a href="#删除属性">删除属性</a></li>
+<li><a href="#检测属性">检测属性</a></li>
+<li><a href="#枚举属性">枚举属性</a></li>
+<li><a href="#属性getter和setter">属性getter和setter</a></li>
+<li><a href="#属性的特性">属性的特性</a></li>
+<li><a href="#对象的三个属性">对象的三个属性</a></li>
+<li><a href="#序列化对象">序列化对象</a></li>
+<li><a href="#对象的方法">对象的方法</a></li>
+</ul>
+<h3 id="对象的定义"><a href="#对象的定义" class="headerlink" title="对象的定义"></a>对象的定义</h3><p>对象是javascript的基本数据类型，对象是一种复合值：它将很多值（原始值或者其他对象）聚合在一起，可通过名字访问这些值。对象也可看做是属性的无序集合，每个属性都是一个名/值对。这种基本数据结构有很多种叫法，比如散列（hash）、散列表（hashtable）、字典（dictionary）、关联数组（associative array）。javascript对象的区别于其它语言中类似对象数据结构的本质特征是：javascript对象还可以从一个成为原型的对象继承属性，即“原型式继承”(prototypal inheritance)。</p>
+<p>对象拥有三个相关的对象特性（object attribute）</p>
+<ul>
+<li>对象的原型（prototype）：原型对象指向另外一个对象，本对象的属性继承自它的原型对象</li>
+<li>对象的类 （class）:是一个标志对象类型的字符串</li>
+<li>对象的扩展标记（extensible flag）：指明了是否可以向该对象添加新属性</li>
+</ul>
+<p>对象的属性包含名字和值，属性名是可以包含空字符串在那的任意字符串，但对象中不能存在两个同名的属性名。属性值可以是任意javascript值，或者是一个getter或setter函数（ECMAScript 5特性）</p>
+<p>对象的属性还有一些与之相关的值，称为“属性特性”（prototype attribute）</p>
+<ul>
+<li>可 写 性（wtitable attribute）：表明是否可以设置该属性的值</li>
+<li>可枚举性（enumerable attribute）：表明是否可以通过for/in循环反悔该属性</li>
+<li>可配置性（configurable attribute）：表明是否可以删除或者修改该属性</li>
+</ul>
+<p>javascript中对象有三大类：</p>
+<ol>
+<li>内置对象（native object）：是由ECMAScript规范定义的对象或类，例如，数组，函数，日期，正则表达式都是内置对象</li>
+<li>宿主对象（host object）：是由javascript解释器所嵌入的宿主环境（比如web浏览器）定义的。例如，表示网页结构的HTMLElement对象均是宿主对象。由于宿主环境定义的方法可以当成普通的javascript函数对象，宿主对象也可以当成内置对象。</li>
+<li>自定义对象（user-defined object）：是有运行中javascript代码创建的对象，例如<code>var a = {} ;</code></li>
+</ol>
+<p>对象的属性也可分为两类：</p>
+<ol>
+<li>自有属性（own prototype）：是直接在对象中定义的属性</li>
+<li>继承属性（inherited prototype）：是在对象的原型对象中定义的属性</li>
+</ol>
+<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><p>在javascript中，有三种方式可以创建对象：</p>
+<ol>
+<li><p>对象直接量</p>
+<blockquote>
+<ul>
+<li>属性名可以是javascript标志符也可以是字符串直接量（包括空字符串）例如：<code>var a = { b: 2 , &#39;&#39; : 3 } ;</code></li>
+</ul>
+<ul>
+<li>保留字用作属性名，必需用引号(ECMAScript 5中可以不用引号)，例如：<code>var a = { &quot;for&quot; : 4 } ;</code></li>
+<li>对象直接量中的最后一个属性后的逗号分隔符将被忽略（ECMAScript 5特性）,而且大部分ECMAScipt 3的实现都支持忽略逗号，但是在老版本IE中会报错( 我印象中貌似ie8以及以下版本 )。例如：<code>var a = { b : 2 , } ;</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>使用关键字new</p>
+<blockquote>
+<ul>
+<li>new运算符创建并初始化一个新对象。关键字new后跟随一个函数调用。这里的函数被称为构造函数（constructor）。构造函数用以初始化一个新创建的对象。例如：<code>var a = new Object() ;// 创建一个空对象，和{}一样</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Object.create()（ECMAScript 5特性）</p>
+<blockquote>
+<ul>
+<li>一个静态函数，用以创建一个对象，其中第一个参数是这个对象的原型，第二个可选参数，用以对对象的属性进行进一步描述。<code>var o1 = Object.create( { x : 1 , y : 2 } ) ;// o1继承了属性x和y</code></li>
+<li>第一个参数若为null，则创建一个没有原型的新对象，不会继承任何东西，包括基础方法，比如toString()，所以它将不能和“＋”运算符一起正常工作。</li>
+<li>创建普通空对象，<code>var o3 = Object.create( Object.prototype ) ; // o3和{}和new Object() 一样</code></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>一些特性：</p>
+<ul>
+<li>所有通过对象直接量创建的对象都具有同一个原型对象，可用Object.prototype获得原型对象的引用</li>
+<li>通过关键字new创建的对象的原型就是构造函数的prototype属性的值,<code>var a = new Array() ;// a的原型对象就是Array.prototype</code></li>
+<li>没有原型对象的对象为数不多，Object.prototype就没有原型对象，它不继承任何属性。其它原型对象都是普通对象，普通对象都具有原型；（null，也是没有原型对象的对象，个人理解）</li>
+<li>所有内置构造函数（以及大部分自定义的构造函数）都具有一个继承自Object.prototype的原型（即，所有内置构造函数的原型对象都继承自Object.prototype ）。例如：new Date()创造的对象同时继承Date.prototype和Object.prototype，这一系列的原型对象就是所谓的“原型链”(prototype chain)</li>
+</ul>
+<p>例6-1:通过原型继承创建一个新对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params"> p </span>)</span>&#123;		<span class="comment">// 返回一个继承自原型对象p的属性的新对象</span></div><div class="line">	<span class="keyword">if</span>( p == <span class="literal">null</span> ) <span class="keyword">throw</span> <span class="built_in">TypeError</span>() ;	<span class="comment">// p是一个对象，但不能为null和undefined</span></div><div class="line">  	<span class="keyword">if</span>( <span class="built_in">Object</span>.create ) <span class="keyword">return</span> <span class="built_in">Object</span>.create( p ) ;	<span class="comment">// 如果cteate()方法存在，则使用它</span></div><div class="line">  	<span class="keyword">var</span> t = <span class="keyword">typeof</span> p ;	<span class="comment">// 否则进一步检测</span></div><div class="line">  	<span class="keyword">if</span>( t !== <span class="string">"object"</span> &amp;&amp; t !== <span class="string">"function"</span> ) <span class="keyword">throw</span> <span class="built_in">TypeError</span>() ;	<span class="comment">// p只能是一个对象或者函数对象</span></div><div class="line">  	<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125; ;	<span class="comment">// 定义一个空的构造函数</span></div><div class="line">  	f.prototype = p ;	<span class="comment">// 将其原型属性设置为p</span></div><div class="line">  	<span class="keyword">return</span> <span class="keyword">new</span> f() ;	<span class="comment">// 使用f()创建一个p的继承对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>inherit函数不能完全替代Object.cteate() ， 它不能传入null为原型创建对象，而且不能接受可选的第二个参数</p>
+</blockquote>
+<p><strong><em>才写了两小节  未完待续</em></strong></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="javascript对象详解" data-url="http://www.maotingfeng.me/2016/08/27/javascript对象详解/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

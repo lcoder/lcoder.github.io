@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>webpack配置 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack配置">
+<meta property="og:url" content="http://www.maotingfeng.me/2016/08/28/webpack配置/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:updated_time" content="2016-08-28T03:48:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack配置">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-webpack配置" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">webpack配置</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by maotingfeng on 16/7/18.</div><div class="line"> */</div><div class="line"></div><div class="line">var webpack = require( &apos;webpack&apos; ) ,</div><div class="line">    CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin ,</div><div class="line">    path = require( &apos;path&apos; ) ,</div><div class="line">    root = path.resolve( &apos;./public_src&apos; ) ,</div><div class="line">    env = process.env.NODE_ENV ,</div><div class="line">    plugins = null ,</div><div class="line">    loaders = [] ,</div><div class="line">    __public = &apos;public&apos; ,</div><div class="line">    __public_src = &apos;public_src&apos;,</div><div class="line">    __js = path.join( __dirname , __public  , &apos;js&apos; ) ,</div><div class="line">    __js_src = path.join( __dirname , __public_src , &apos;js&apos; ) ,</div><div class="line">    __css = path.join( __dirname , __public , &apos;css&apos; ) ;</div><div class="line">// extract-text-webpack-plugin : 有时候可能希望项目的样式能不要被打包到脚本中，而是独立出来作为.css，然后在页面中以&lt;link&gt;标签引入。这时候我们需要  来帮忙：</div><div class="line">//var htmlWebpackPlugin = require( &apos;html-webpack-plugin&apos; ) ;</div><div class="line">var importES5Shim = &apos;imports?shim=&apos;+ path.resolve( __js , &apos;es5-shim/es5-shim.min&apos; ) + &apos;&amp;sham=&apos;+ path.resolve( __js , &apos;es5-shim/es5-sham&apos; ) ;</div><div class="line"></div><div class="line">var plugin_uglify = new webpack.optimize.UglifyJsPlugin( &#123;</div><div class="line">                        mangle:&#123; except: [&apos;$&apos;,&apos;jQuery&apos;,&apos;exports&apos;,&apos;require&apos;,&apos;module&apos;] &#125; ,</div><div class="line">                        compress: &#123;</div><div class="line">                            warnings: false ,   // 警告信息不显示</div><div class="line">                        &#125; ,</div><div class="line">                        sourceMap: true</div><div class="line">                    &#125; ) ;</div><div class="line"></div><div class="line">/* ,</div><div class="line"> new webpack.ProvidePlugin(&#123;</div><div class="line">     $: &quot;jquery&quot;,</div><div class="line">     jQuery: &quot;jquery&quot;,</div><div class="line">     &quot;window.jQuery&quot;: &quot;jquery&quot;</div><div class="line"> &#125;)</div><div class="line">*/</div><div class="line">var loader_scss = env == &apos;production&apos; ? importES5Shim + &apos;!style!css!autoprefixer?browsers=last 20 version!sass&apos; : &apos;style!css?modules&amp;importLoaders=2&amp;sourceMap&amp;localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 20 version!sass?outputStyle=expanded&amp;sourceMap&apos; ;</div><div class="line">// 加载器</div><div class="line">loaders = [</div><div class="line">            &#123;   test: /\.scss$/ , loader: loader_scss &#125; ,</div><div class="line">            &#123; test: /\.css$/ , loader: importES5Shim + &apos;!style!css&apos; &#125; ,</div><div class="line">            &#123; test: /\.jade$/ , loader: &apos;jade&apos; &#125; ,</div><div class="line">            &#123;</div><div class="line">                test: /\.(jpe?g|png|gif|svg)$/i ,</div><div class="line">                publicPath: &apos;../images/&apos; ,</div><div class="line">                loaders: [</div><div class="line">                    &apos;file?hash=sha512&amp;digest=hex&amp;name=[hash].[ext]&apos;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ] ;</div><div class="line">// 插件</div><div class="line">plugins = [</div><div class="line">    // 提取公共部分</div><div class="line">    // new CommonsChunkPlugin( &apos;hr_common.min.js&apos; , [ &apos;hr_index&apos; , &apos;hr_jobs&apos; , &apos;hr_resume_upload&apos; , &apos;hr_resume_edit&apos; , &apos;hr_my_resume&apos; , &apos;hr_my_account&apos; , &apos;hr_my_account_edit&apos; , &apos;hr_my_wallet&apos; , &apos;hr_resumes&apos; , &apos;hr_register_account&apos; , &apos;hr_register_info&apos; , &apos;hr_job_detail&apos; , &apos;hr_findpwd&apos; ] )</div><div class="line">]</div><div class="line">if( env == &apos;production&apos; )&#123;</div><div class="line">    plugins.push( plugin_uglify ) ;</div><div class="line">&#125;else&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    entry: &#123;</div><div class="line">        &apos;index&apos; : path.resolve( __js_src , &apos;index.js&apos; ) ,</div><div class="line">        // 个人 hr</div><div class="line">        &apos;hr_index&apos; : path.resolve( __js_src , &apos;hr_index.js&apos; ) ,</div><div class="line">        &apos;hr_jobs&apos; : path.resolve( __js_src , &apos;hr_jobs.js&apos; ) ,</div><div class="line">        &apos;hr_resume_upload&apos; : path.resolve( __js_src , &apos;hr_resume_upload.js&apos; ) ,</div><div class="line">        &apos;hr_resume_edit&apos; : path.resolve( __js_src , &apos;hr_resume_edit.js&apos; ) ,</div><div class="line">        &apos;hr_my_resume&apos; : path.resolve( __js_src , &apos;hr_my_resume.js&apos; ) ,</div><div class="line">        &apos;hr_my_account&apos; : path.resolve( __js_src , &apos;hr_my_account.js&apos; ) ,</div><div class="line">        &apos;hr_my_account_edit&apos; : path.resolve( __js_src , &apos;hr_my_account_edit.js&apos; ) ,</div><div class="line">        &apos;hr_my_wallet&apos;: path.resolve( __js_src , &apos;hr_my_wallet.js&apos; ) ,</div><div class="line">        &apos;hr_resumes&apos;: path.resolve( __js_src , &apos;hr_resumes.js&apos; ) ,</div><div class="line">        &apos;hr_register_account&apos;: path.resolve( __js_src , &apos;hr_register_account.js&apos; ) ,</div><div class="line">        &apos;hr_register_info&apos;: path.resolve( __js_src , &apos;hr_register_info.js&apos; ) ,</div><div class="line">        &apos;hr_job_detail&apos;: path.resolve( __js_src , &apos;hr_job_detail.js&apos; ) ,</div><div class="line">        &apos;hr_findpwd&apos;: path.resolve( __js_src , &apos;hr_findpwd.js&apos; ) ,</div><div class="line">        // 企业 company</div><div class="line">        &apos;company_work&apos;: path.resolve( __js_src , &apos;company_work.js&apos; ),</div><div class="line">        &apos;company_wallet&apos;: path.resolve( __js_src , &apos;company_wallet.js&apos;),</div><div class="line">        &apos;company_resumes&apos;: path.resolve( __js_src , &apos;company_resumes.js&apos;),</div><div class="line">        &apos;company_report_form&apos;: path.resolve( __js_src , &apos;company_report_form.js&apos;),</div><div class="line">        &apos;company_register_corporate&apos;: path.resolve( __js_src , &apos;company_register_corporate.js&apos;),</div><div class="line">        &apos;company_register_account&apos;: path.resolve( __js_src , &apos;company_register_account.js&apos; ),</div><div class="line">        &apos;company_publish_post&apos;: path.resolve( __js_src , &apos;company_publish_post.js&apos;),</div><div class="line">        &apos;company_position&apos;: path.resolve( __js_src, &apos;company_position.js&apos;),</div><div class="line">        &apos;company_job_details&apos;: path.resolve( __js_src , &apos;company_job_details.js&apos;),</div><div class="line">        &apos;company_findpwd&apos;: path.resolve( __js_src , &apos;company_findpwd.js&apos;),</div><div class="line">        &apos;company_candidate&apos;: path.resolve( __js_src , &apos;company_candidate.js&apos;),</div><div class="line">        &apos;company_account_set&apos;: path.resolve( __js_src , &apos;company_account_set.js&apos;),</div><div class="line">        &apos;company_account_edit&apos;: path.resolve( __js_src , &apos;company_account_edit.js&apos;),</div><div class="line">        &apos;company_apply_promise_service&apos;: path.resolve( __js_src , &apos;company_apply_promise_service.js&apos;),</div><div class="line">        &apos;steward&apos;: path.resolve( __js_src , &apos;steward.js&apos;),</div><div class="line">        // 公共部分(hr、company)</div><div class="line">        &apos;common_resume_detail&apos;: path.resolve( __js_src , &apos;common_resume_detail.js&apos; ) ,</div><div class="line">        &apos;common_login&apos;: path.resolve( __js_src , &apos;common_login.js&apos; ) ,</div><div class="line">        &apos;common_msg&apos;: path.resolve( __js_src , &apos;common_msg.js&apos; )</div><div class="line">    &#125; ,</div><div class="line">    output: &#123;</div><div class="line">        path: &apos;./public/js&apos; ,</div><div class="line">        publicPath: &apos;/js/&apos; ,</div><div class="line">        filename: &apos;[name].min.js&apos;</div><div class="line">    &#125; ,</div><div class="line">    module: &#123;</div><div class="line">        noParse: [ /moment\.min\.js/ ] ,</div><div class="line">        loaders: loaders</div><div class="line">    &#125; ,</div><div class="line">    plugins: plugins ,</div><div class="line">    resolve: &#123;</div><div class="line">       root: [ root ] ,</div><div class="line">       alias: &#123;</div><div class="line">           switchable: path.resolve( __js_src , &apos;lib/switchable.min.js&apos; ) ,</div><div class="line">           dialog:  path.resolve( __js_src , &apos;lib/dialog&apos; ) ,</div><div class="line">           hrjia_dialog: path.resolve( __js_src , &apos;lib/hrjia_dialog/hrjia_dialog.js&apos; ) ,</div><div class="line">           jquerytmpl: path.resolve( __js_src , &apos;lib/jquery.tmpl.js&apos; ) ,</div><div class="line">           validation: path.resolve( __js_src , &apos;lib/jquery-validation-1.14.0/dist/jquery.validate&apos; ) ,</div><div class="line">           validation_zh: path.resolve( __js_src , &apos;lib/jquery-validation-1.14.0/dist/localization/messages_zh&apos; ) ,</div><div class="line">           kitpage:  path.resolve( __js_src , &apos;lib/kitpage.js&apos; ) ,</div><div class="line">           momentjs:  path.resolve( __js_src , &apos;lib/moment/min/moment.min.js&apos; ) ,</div><div class="line">           easyaddress: path.resolve( __js_src , &apos;lib/easyaddress/jquery.easyaddress.js&apos; ) ,</div><div class="line">           cookie: path.resolve( __js_src , &apos;lib/cookie.js&apos; ) ,</div><div class="line">           md5 : path.resolve( __js_src , &apos;lib/jquery.md5.js&apos; ) ,</div><div class="line">           mdate: path.resolve( __js_src , &apos;lib/mdate.js&apos; ) ,</div><div class="line">           cropper: path.resolve( __js_src , &apos;lib/cropper-v2.3.0/cropper.js&apos; ) ,</div><div class="line">           ajaxFileUpload: path.resolve( __js_src , &apos;lib/ajax_file_upload.js&apos; ) ,</div><div class="line">           boardPopup: path.resolve( __js_src , &apos;lib/boardPopup.js&apos; ) ,</div><div class="line">           upload_resume:  path.resolve( __js_src , &apos;upload_resume.js&apos; ) ,</div><div class="line">           webuploader:  path.resolve( __js_src , &apos;lib/webuploader-0.1.5/webuploader.min&apos; ) ,</div><div class="line">           percircle: path.resolve( __js_src , &apos;lib/percircle/percircle&apos; ) ,</div><div class="line">           perfectScrollbar:  path.resolve( __js_src , &apos;lib/perfect-scrollbar/js/perfect-scrollbar.jquery&apos; ) ,</div><div class="line">           checkReg: path.resolve( __js_src , &apos;lib/checkReg&apos; ) ,</div><div class="line">           ymdate: path.resolve( __js_src , &apos;lib/ymdate&apos; ) ,</div><div class="line">           browserCheck: path.resolve( __js_src , &apos;browserCheck&apos; ) ,</div><div class="line">           global: path.resolve( __js_src , &apos;global.js&apos; ) ,</div><div class="line">           hr_global: path.resolve( __js_src , &apos;hr_global.js&apos; ) ,</div><div class="line">           company_global: path.resolve( __js_src , &apos;company_global.js&apos; ) ,</div><div class="line">           common_upload_img:  path.resolve( __js_src , &apos;common_upload_img.js&apos; ),</div><div class="line">           echarts: path.resolve( __js_src , &apos;lib/echarts.min.js&apos;)</div><div class="line">       &#125;</div><div class="line">    &#125; ,</div><div class="line">    externals: &#123;</div><div class="line">        &quot;$&quot;      : &quot;jQuery&quot; ,</div><div class="line">        &quot;jQuery&quot; : &quot;jQuery&quot; ,</div><div class="line">        &quot;jquery&quot; : &quot;jQuery&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="webpack配置" data-url="http://www.maotingfeng.me/2016/08/28/webpack配置/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

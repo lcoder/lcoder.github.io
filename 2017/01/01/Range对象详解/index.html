@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Range对象详解 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="Range对象详解
+
+什么是Range对象？
+
+Range表示HTML文档的一部分内容，它可以在任何点开始和结束，最常见的Range就是用户选择的一段文本。通过Range对象，你可以找到开始点和结束点，你可以复制或者删除它，或者替换成另一段文本，甚至是一段HTML代码。
+获取Range对象有三种方法：
+
+document.createRange 方法
+1var range = document.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Range对象详解">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/01/Range对象详解/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="Range对象详解
+
+什么是Range对象？
+
+Range表示HTML文档的一部分内容，它可以在任何点开始和结束，最常见的Range就是用户选择的一段文本。通过Range对象，你可以找到开始点和结束点，你可以复制或者删除它，或者替换成另一段文本，甚至是一段HTML代码。
+获取Range对象有三种方法：
+
+document.createRange 方法
+1var range = document.c">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-collapsed.png">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-startoffset.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-setStart.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-setStartBefore.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-collpased.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-cloneContents.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/clone-extractContents.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-insertNode.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/range-surroundContents.jpeg">
+<meta property="og:updated_time" content="2017-01-06T00:43:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Range对象详解">
+<meta name="twitter:description" content="Range对象详解
+
+什么是Range对象？
+
+Range表示HTML文档的一部分内容，它可以在任何点开始和结束，最常见的Range就是用户选择的一段文本。通过Range对象，你可以找到开始点和结束点，你可以复制或者删除它，或者替换成另一段文本，甚至是一段HTML代码。
+获取Range对象有三种方法：
+
+document.createRange 方法
+1var range = document.c">
+<meta name="twitter:image" content="http://oco9w3mgp.bkt.clouddn.com/range-collapsed.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Range对象详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Range对象详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Range对象详解</p>
+<ol>
+<li>什么是<code>Range</code>对象？</li>
+</ol>
+<p>Range表示HTML文档的一部分内容，它可以在任何点开始和结束，最常见的Range就是用户选择的一段文本。通过Range对象，你可以找到开始点和结束点，你可以复制或者删除它，或者替换成另一段文本，甚至是一段HTML代码。</p>
+<p>获取<code>Range</code>对象有三种方法：</p>
+<ul>
+<li><p>document.createRange 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange();</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Selection</code>对象的<code>getRangeAt</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;			<span class="comment">// 获取用户选中的内容Selection对象</span></div><div class="line"><span class="keyword">var</span> range = selection.getRangeAt( <span class="number">0</span> ) ;			<span class="comment">// 从Selection对象获取Range对象</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Range</code>的构造函数来创建一个<code>Range</code>对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> range = <span class="keyword">new</span> Range() ;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>下面介绍一下<code>Range</code>对象(实例)的属性：</p>
+<ol>
+<li><p><code>Range.collapsed</code> 只读，返回一个判断当前<code>Range</code>对象的起始位置和终止位置是否相同的布尔值。</p>
+<p>例1-1:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;    <span class="comment">// Selection对象</span></div><div class="line"><span class="keyword">var</span> range = selection.getRangeAt( <span class="number">0</span> ) ;    <span class="comment">// W3C Range对象</span></div><div class="line"><span class="built_in">console</span>.log( range.collapsed ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-collapsed.png" alt="range-collapsed"></p>
+<p>当选中’年底’二字的时候，起始位置和终止位置不同，返回false；当光标在’年底’之后，起始位置和终止位置相同，collapsed返回true。</p>
+</li>
+<li><p><code>commonAncestorContainer</code>只读，返回包含<code>startContainer</code>和<code>endContainer</code>的最深的节点</p>
+<p>一般为文本节点，比如选中’年底’，返回的是包含’年底’的那个文本节点。</p>
+<p>注意⚠️：返回的文本节点，是包含年底二字的文本节点，’每到年底…’整段都是那个文本节点。如果<code>Range</code>对象跨标签，<code>&lt;p&gt;每到年底,很多新闻&lt;/p&gt;&lt;span&gt;比如洞察宇宙的&lt;/span&gt;</code>当选中<code>很多新闻&lt;/p&gt;&lt;span&gt;比如</code>这样子的文本，返回的最深节点为包含<code>p</code>标签和<code>span</code>标签的共同父标签。</p>
+</li>
+<li><p><code>startContainer</code>/<code>endContainer</code>只读，返回<code>Range</code>对象开始和终止的节点对象。</p>
+<p>一般选中文字，返回的都是文本节点</p>
+</li>
+<li><p><code>startOffset</code>/<code>endOffset</code>只读，表示Range起始位置和终止位置的数字</p>
+<p>例1-2:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;    <span class="comment">// Selection对象</span></div><div class="line"><span class="keyword">var</span> range = selection.getRangeAt( <span class="number">0</span> ) ;    <span class="comment">// W3C Range对象</span></div><div class="line"><span class="built_in">console</span>.log( range.startOffset , range.endOffset )</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-startoffset.jpeg" alt="range-offsetStart"></p>
+<p>​    当<code>Range.collapsed</code>为true是，startOffset和endOffset值相等。</p>
+</li>
+</ol>
+<p>下面介绍一下<code>Range</code>对象拥有的方法：</p>
+<p>1、<code>Range.setStart()</code>/<code>Range.setEnd()</code>设置<code>Range</code>的起点和终点，这两个方法都接受两个参数Node和offset；如果起始节点是Text,Comment, or CDATASection之一，那么offset指的是从起始节点算起的字符的偏移量，对于其他Node类型节点，offset是指从起始节点开始算起子节点的偏移量[^2]。</p>
+<p>例1-3:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;									</div><div class="line"><span class="keyword">var</span> startNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>].firstChild ;	<span class="comment">// 获取文本节点</span></div><div class="line"><span class="keyword">var</span> startOffset = <span class="number">1</span> ;</div><div class="line"></div><div class="line">range.setStart(startNode, startOffset) ;</div><div class="line">range.setEnd(startNode, startOffset + <span class="number">4</span> ) ;</div><div class="line"></div><div class="line">selection.removeAllRanges() ;</div><div class="line">selection.addRange( range ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-setStart.jpeg" alt="range-setStart"></p>
+<p>设置startOffset为1，从’每’第一个字符后开始，设置endOffset为，起始之后的4个字符，逗号之后。最后通过<code>Selection</code>对象的<code>removeAllRanges()</code>和<code>addRange()</code>方法，建立拖蓝<a href="蓝底黑字的部分，即鼠标拖动经过文字，产生的蓝色底色的部分">^1</a>的文本选区。<code>Selection</code>对象的API可以看MDN的文档，见下面的参考资料超链接。</p>
+<p>2、<code>Range.setStartBefore()</code>/<code>Range.setStartAfter()</code>/<code>Range.setEndBefore()</code>/<code>Range.setEndAfter()</code>以其他节点之前，之后为基准，设置<code>Range</code>对象的起止点。这四个方法共同接受一个参数,referenceNode。</p>
+<p>比如，你想要选中<code>&lt;p&gt;每到年底，很多新闻机构都会评选年度新闻。小编注意到，习主席今年贺词提到的具体成就格外关注科技和创新。&lt;/p&gt;</code>整个<code>p</code>标签的文本，可以：</p>
+<p>例1-4</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>].firstChild ;</div><div class="line"><span class="comment">// 设置setStartBefore和setEndAfter为共同的一个文本节点即可选中这个标签的所有文本</span></div><div class="line">range.setStartBefore( pTextNode ) ;</div><div class="line">range.setEndAfter( pTextNode ) ;</div><div class="line"></div><div class="line">selection.removeAllRanges() ;</div><div class="line">selection.addRange( range ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-setStartBefore.jpeg" alt="range-setStartBefore"></p>
+<p>3、<code>Range.selectNode()</code>设置<code>Range</code>对象包含指定的<code>Node</code>节点和它的内容，参数为需要选中的Node，referenceNode;执行之后，<code>Range</code>对象的startContainer和endContainer为传入的referenceNode的父元素。</p>
+<p>4、<code>Range.selectNodeContents()</code>设置<code>Range</code>对象包含指定<code>Node</code>节点的内容，例1-4的代码可改写成如下：</p>
+<p>例1-5:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line"><span class="comment">// setStartBefore和setEndAfter去掉，换成selectNodeContents</span></div><div class="line">range.selectNodeContents( pTextNode ) ;</div><div class="line"></div><div class="line">selection.removeAllRanges() ;</div><div class="line">selection.addRange( range ) ;</div></pre></td></tr></table></figure>
+<p>细心的你可能发现第三行代码，最后的获取的节点不一样了，有<code>firstChild</code>的获取的是text节点，没有的，获取的是element节点。<code>setStartBefore</code>传入的参数若是一个element节点，则<code>Range</code>对象会包含这个element节点，因为选区的内容是从element节点之前开始的。倘如传入的是element节点下面的text节点，则<code>Range</code>对象不会包含这个element节点，单单只包含text节点的内容。</p>
+<p>调用了<code>range.selectNodeContents</code>方法之后：</p>
+<blockquote>
+<p>The parent <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node" target="_blank" rel="external"><code>Node</code></a> of the start and end of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank" rel="external"><code>Range</code></a> will be the reference node. The <code>startOffset</code> is 0, and the <code>endOffset</code> is the number of child <code>Nodes</code> or number of characters contained in the reference node.</p>
+</blockquote>
+<p>翻译一下，意思大概：</p>
+<blockquote>
+<p><code>Range</code>对象的开始节点和结束节点的父节点为传入的reference node，起始偏移量为0，结束偏移量为子节点的个数[^2]或者reference node节点包含的文本字符数。</p>
+</blockquote>
+<p>我测试了一下，当执行上面的代码之后:<code>console.log( range.startContainer === pTextNode , range.endContainer === pTextNode )</code></p>
+<p>打印了一下，<code>true true</code>，结果两个都是为true。正确意思应该是startContainer和endContainer都应该是reference node，而不是它们的父节点是reference node。这个和<code>Range.selectNode</code>的方法实现有点不一样，<code>Range.selectNode</code>执行完之后，startContainer和endContainer代表的是reference node的父元素。</p>
+<p>4、<code>Range.collpase()</code>移动<code>Range</code>对象的开始或者结束节点，到另外一个边界点。即，折叠开始节点到结束节点，或者折叠结束节点到开始节点，让开始和结束节点重合。这个方法接受一个布尔值的参数，如果为true，则折叠结束节点到开始节点，false，折叠开始节点到结束节点。折叠之后的<code>Range</code>对象是空的，没有内容，在dom树中指定了一个单一的入口节点。判断一个<code>Range</code>对象是否已经被折叠过了，可以查看<code>Range.collapsed</code>属性。</p>
+<p>例1-6:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>].firstChild ;</div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line"></div><div class="line">range.collapse( <span class="literal">false</span> ) ;</div><div class="line"></div><div class="line">selection.removeAllRanges() ;</div><div class="line">selection.addRange( range ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-collpased.jpeg" alt="range-collpased"></p>
+<p>光标选中了pTextNode的句号之后的最后一部分。</p>
+<p>以上为定位方法，下面介绍编辑方法：</p>
+<p>5、<code>Range.cloneContents()</code>返回DocumentFragment类型的<code>Range</code>中节点的文档片段。事件监听器不会被复制，html的属性中绑定的事件会被复制，id也会被复制，所以处理的时候要小心。</p>
+<p>例1-7:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line"></div><div class="line"><span class="keyword">var</span> cloned = range.cloneContents() ;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.appendChild( cloned ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-cloneContents.jpeg" alt="range-cloneContents"></p>
+<p>被复制出来的节点内容是：<code>&lt;p&gt;每到年底，很多新闻机构都会评选年度新闻。小编注意到，习主席今年贺词提到的具体成就格外关注科技和创新。&lt;/p&gt;</code>包含标签。</p>
+<p>6、<code>Range.deleteContents()</code>从文档中移除<code>Range</code>选中的内容，无返回值。</p>
+<p>7、<code>Range.extractContents()</code> 把<code>Range</code>的内容从文档树中提取到文档片段中。返回的也是DocumentFragment类型。</p>
+<p>例1-8:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;</div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line"></div><div class="line"><span class="keyword">var</span> extracted = range.extractContents() ;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.appendChild( extracted ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/clone-extractContents.jpeg" alt="range-extractContents"></p>
+<p>注意⚠️：如果Range对象跨标签，extractContents方法会返回补齐后的标签，比如<code>&lt;p&gt;abc&lt;/p&gt;&lt;span&gt;efg&lt;/span&gt;</code>如果选中<code>c&lt;/p&gt;&lt;span&gt;e</code>的话，返回的的DocumentFragment中内容是：<code>&lt;p&gt;c&lt;/p&gt;&lt;span&gt;e&lt;/span&gt;</code>。</p>
+<p>8、<code>Range.insertNode()</code>在起点处插入节点。该方法接受一个参数，newNode，要插入的节点。</p>
+<p>例1-9:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;         <span class="comment">// Selection对象</span></div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line"></div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line"></div><div class="line"><span class="keyword">var</span> text = <span class="string">'我是新的内容'</span> ,</div><div class="line">    newNode = <span class="built_in">document</span>.createTextNode( text ) ;</div><div class="line">range.insertNode( newNode ) ;</div><div class="line"></div><div class="line"></div><div class="line">range.setStart( newNode , text.length ) ;</div><div class="line">range.collapse( <span class="literal">true</span> ) ;</div><div class="line"></div><div class="line">selection.removeAllRanges() ;</div><div class="line">selection.addRange( range ) ;</div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-insertNode.jpeg" alt="range-insertNode"></p>
+<p>newNode可以是documentFragment类型的节点。</p>
+<p>9、<code>Range.surroundContents</code>接收一个Node类型的参数newNode。把<code>Range</code>对象的内容移动到newNode中，并且，将newNode放入当前<code>Range</code>对象的开始位置。包裹之后，<code>Range</code>对象的边界在也会受newNode影响。</p>
+<p>例1-10:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection = <span class="built_in">window</span>.getSelection() ;         <span class="comment">// Selection对象</span></div><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line"></div><div class="line">range.surroundContents( <span class="built_in">document</span>.createElement(<span class="string">'div'</span>) ) ;	<span class="comment">// 用div包裹p标签</span></div></pre></td></tr></table></figure>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/range-surroundContents.jpeg" alt="range-surroundContents"></p>
+<blockquote>
+<p>An exception will be thrown, however, if the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank" rel="external"><code>Range</code></a> splits a non-<a href="https://developer.mozilla.org/en-US/docs/Web/API/Text" target="_blank" rel="external"><code>Text</code></a> node with only one of its boundary points. That is, unlike the alternative above, if there are partially selected nodes, they will not be cloned and instead the operation will fail.</p>
+<p>也有例外情况, 如果选定的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range" target="_blank" rel="external"><code>Range</code></a>区域包含仅有一个节点标签的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Text" target="_blank" rel="external"><code>Text</code></a>. 那标签将不会自动成对生成，操作将失败.</p>
+</blockquote>
+<p>其他一些方法:</p>
+<p>10、<code>Range.compareBoundaryPoints()</code>接受两个参数，第一个参数是how，第二个参数是<code>Range</code>类型的sourceRange，指示当前<code>Range</code>的相应边界点是否分别在sourceRange的对应边界点之前，等于或者之后。返回一个数字类型的值，-1，0，1。具体参数配置，请移步<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/compareBoundaryPoints" target="_blank" rel="external">MDN Range.compareBoundaryPoints()</a></p>
+<p>例1-11:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> range2 = <span class="built_in">document</span>.createRange() ;</div><div class="line"><span class="keyword">var</span> pTextNode = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'p'</span> )[<span class="number">0</span>] ;</div><div class="line"><span class="keyword">var</span> span = <span class="built_in">document</span>.getElementsByTagName( <span class="string">'span'</span> )[<span class="number">0</span>] ;	<span class="comment">// span 标签毗邻p标签之后</span></div><div class="line"></div><div class="line">range.selectNode( pTextNode ) ;</div><div class="line">range2.selectNode( span ) ;</div><div class="line"></div><div class="line"><span class="keyword">var</span> compare = range2.compareBoundaryPoints( Range.END_TO_END , range ) ;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log( compare )	<span class="comment">// 返回 1  说明range2的end确实在range的end之后。</span></div></pre></td></tr></table></figure>
+<p>11、<code>Range.clone()</code>返回拥有和原 <code>Range</code> 相同端点的克隆 <code>Range</code> 对象。</p>
+<blockquote>
+<p>The returned clone is copied by value, not reference, so a change in either <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank" rel="external"><code>Range</code></a> does not affect the other.</p>
+<p>返回的clone对象拷贝了值，不是返回原有range的引用，所以改变其中的一个range不会影响另外一个。</p>
+</blockquote>
+<p>12、<code>Range.detach()</code>从使用状态释放 <code>Range</code>，此方法用于改善性能。</p>
+<blockquote>
+<p>Subsequent attempts to use the detached range will result in a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMException" target="_blank" rel="external"><code>DOMException</code></a> being thrown with an error code of <code>INVALID_STATE_ERR</code>.</p>
+<p>随后尝试使用已经释放的range会抛出一个DOMException的异常，错误状态码：INVALID_STATE_ERR。</p>
+</blockquote>
+<p>13、<code>Range.toString()</code>把<code>Range</code>对象的内容作为字符串返回。<code>alert( Range对象 )</code>默认调用的就是toString方法,弹出选中的内容。</p>
+<p>还有一些实验性的方法，不推荐在生产环境中使用：</p>
+<p>14、<code>Range.getBoundingClientRect()</code>返回一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ClientRect" target="_blank" rel="external"><code>ClientRect</code></a> 对象，该对象限定了选定的文档对象的内容，该方法返回了一个矩形，这个矩形包围了该文档对象中所有元素的边界矩形集合。</p>
+<blockquote>
+<p>This is method is useful for determining the viewport coordinates of the cursor or selection inside a text box. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank" rel="external"><code>Element.getBoundingClientRect()</code></a> for the details on the returned value.</p>
+</blockquote>
+<p>当想获取视图窗口的坐标系时，这个方法还是挺有用的。返回当前<code>Range</code>的top，right，bottom，left，width，height。</p>
+<p>15、<code>Range.getClientRects()</code>返回一系列包含ClientReact对象的list。每个ClientRect对象代表在当前<code>Range</code>对象里的元素的ClientRect。</p>
+<blockquote>
+<p>The <strong>Range.getClientRects()**</strong> **method returns a list of <a href="https://developer.mozilla.org/en-US/docs/Web/API/ClientRect" target="_blank" rel="external"><code>ClientRect</code></a> objects representing the area of the screen occupied by the <a href="https://developer.mozilla.org/en/DOM/range" target="_blank" rel="external">range</a>. This is created by aggregating the results of calls to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getClientRects" target="_blank" rel="external"><code>Element.getClientRects()</code></a> for all the elements in the range.</p>
+</blockquote>
+<p>16、其他方法，比如：<code>Range.compareNode()</code>、<code>Range.comparePoint()</code>、<code>Range.createContextualFragment()</code>、<code>Range.intersectsNode()</code>、<code>Range.isPointInRange()</code>都是Gecko 内核的方法，可移步<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range" target="_blank" rel="external">MDN Web Api接口 Range</a></p>
+<p>[^2]: 当range的开始节点或者结束节点不是文本节点的时候，偏移量代表想要选中的子节点个数的数字，不能超过子节点的长度,MDN上解释如下：If the endNode is a Node of type Text, Comment, or CDATASection, then endOffset is the number of characters from the start of endNode. For other Node types, endOffsetis the number of child nodes between the start of the endNode.</p>
+<blockquote>
+<p>参考资料</p>
+<p>1、<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range" target="_blank" rel="external">MDN Web Api接口 Range</a></p>
+<p>2、<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection" target="_blank" rel="external">MDN Web Api接口 Selection</a></p>
+<p>2、<a href="https://imys.net/20161125/cursor-offset-at-input.html" target="_blank" rel="external">JavaScript 获取输入时的光标位置及场景问题</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="Range对象详解" data-url="http://www.maotingfeng.me/2017/01/01/Range对象详解/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

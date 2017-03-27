@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript数组操作 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="JavaScript数组操作
+join() 方法将数组中所有的元素都转化为字符串并连接在一起，返回最后生成的字符串。可以指定一个可选的字符串在生成的字符串中来分隔数组的各个元素，如果不指定分隔符，默认使用英文逗号。一般配合String.split()方法的操作。
+12var a = [ 1 , 2, 3 ] ;a.join() ;	// &quot;1,2,3&quot;
+
+reverse()方法将数组中的元素颠倒排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript数组操作">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/12/JavaScript数组操作/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="JavaScript数组操作
+join() 方法将数组中所有的元素都转化为字符串并连接在一起，返回最后生成的字符串。可以指定一个可选的字符串在生成的字符串中来分隔数组的各个元素，如果不指定分隔符，默认使用英文逗号。一般配合String.split()方法的操作。
+12var a = [ 1 , 2, 3 ] ;a.join() ;	// &quot;1,2,3&quot;
+
+reverse()方法将数组中的元素颠倒排">
+<meta property="og:updated_time" content="2017-01-12T14:05:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript数组操作">
+<meta name="twitter:description" content="JavaScript数组操作
+join() 方法将数组中所有的元素都转化为字符串并连接在一起，返回最后生成的字符串。可以指定一个可选的字符串在生成的字符串中来分隔数组的各个元素，如果不指定分隔符，默认使用英文逗号。一般配合String.split()方法的操作。
+12var a = [ 1 , 2, 3 ] ;a.join() ;	// &quot;1,2,3&quot;
+
+reverse()方法将数组中的元素颠倒排">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript数组操作"><span class="toc-text">JavaScript数组操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ECMAScript5中数组的方法"><span class="toc-text">ECMAScript5中数组的方法</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript数组操作" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript数组操作</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="JavaScript数组操作"><a href="#JavaScript数组操作" class="headerlink" title="JavaScript数组操作"></a>JavaScript数组操作</h2><ul>
+<li><p><em>join()</em> 方法将数组中所有的元素都转化为字符串并连接在一起，返回最后生成的字符串。可以指定一个可选的字符串在生成的字符串中来分隔数组的各个元素，<strong>如果不指定分隔符，默认使用英文逗号</strong>。一般配合String.split()方法的操作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span>, <span class="number">3</span> ] ;</div><div class="line">a.join() ;	<span class="comment">// "1,2,3"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><em>reverse()</em>方法将数组中的元素颠倒排序，返回逆序的数组，不创建新数组，在原有的数组上逆序。</p>
+</li>
+<li><p><em>sort()</em>方法将数组的元素排序，并返回排序后的数组，不创建新数组，在原有的数组上排序。当不带参数调用sort()时，数组元素以<strong>字母顺序排序</strong>，如果数组包含undefined元素，它们会被排到数组的尾部。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">33</span> , <span class="number">4</span> , <span class="number">1111</span> , <span class="number">222</span> ] ;</div><div class="line">a.sort( <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123; <span class="keyword">return</span> a - b ; &#125; )	<span class="comment">// a = [4, 33, 222, 1111]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><em>concat()</em>方法创建并返回一个新数组，它的元素包括调用concat()的原始数组的元素和concat()的每个参数。如果这些参数中的任何一个自身是数组，则连接的是数组的元素，而不是数组本身。但要注意，concat()不会递归扁平化的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> ] ;</div><div class="line">a.concat( <span class="number">4</span> , <span class="number">5</span> ) ; 	<span class="comment">// [ 1 , 2 , 3 , 4 ,5 ]</span></div><div class="line"><span class="keyword">var</span> b = [ <span class="number">1</span> , <span class="number">2</span> ,<span class="number">3</span> ] ;</div><div class="line">b.concat( [ <span class="number">4</span> , <span class="number">5</span> ] ) ; <span class="comment">// [ 1 , 2 , 3 , 4 , 5]</span></div><div class="line"><span class="keyword">var</span> c = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> ]</div><div class="line">c.concat( [ <span class="number">4</span> , [ <span class="number">5</span> ] ] ) ;	<span class="comment">// [ 1 , 2 , 3 , 4 , [ 5 ] ]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><em>slice()</em>方法返回指定数组的一个片段或址数组，返回新数组。它的两个参数分别指定了片段的开始和结束位置。返回的数组包含第一个参数指定的位置和到第二个参数（不包含第二个参数）指定的位置之间的数组元素。</p>
+<ul>
+<li>如果指定一个参数，返回的数组包含从开始位置到数组结尾的所有元素。</li>
+<li>如果参数中出现负数，它表示相对于数组中最后一个元素的位置。-1指定了最后一个元素，-3倒数第三个元素。</li>
+<li>如果不指定开始位置，默认从0开始</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> ] ;</div><div class="line">a.slice( <span class="number">0</span> , <span class="number">3</span> ) ; 	<span class="comment">// [ 1 , 2 , 3 ]</span></div><div class="line">a.slice( <span class="number">-3</span> , <span class="number">-2</span> ) ; <span class="comment">// [ 3 ]</span></div><div class="line">a.slice() 			<span class="comment">// [ 1 , 2 , 3 , 4 , 5 ]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><em>splice()</em>方法在数组中插入或删除元素的通用方法，原有的数组相应的被修改，返回被删除元素的新数组。</p>
+<ul>
+<li><p>第一个参数指定了插入（或删除）的起始位置，第二个参数指定了应该从数组中删除的元素的个数。如果省略第二个参数，从起始到数组结尾的所有元素都将被删除。如果没有被删除的元素，就返回空数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> , <span class="number">6</span> , <span class="number">7</span> , <span class="number">8</span> ];</div><div class="line">a.splice( <span class="number">4</span> ) ;	<span class="comment">// 返回[ 5 , 6 , 7 , 8 ];a是[ 1 , 2 , 3 , 4 ]</span></div><div class="line"><span class="keyword">var</span> b = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> , <span class="number">6</span> , <span class="number">7</span> , <span class="number">8</span> ];</div><div class="line">b.splice( <span class="number">4</span> , <span class="number">2</span> ) ;	<span class="comment">// 返回[ 5 , 6 ];b是[ 1 , 2 , 3 , 4 , 7 , 8 ]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>前两个参数指定了需要删除的数组元素，后面的任意个参数指定了需要插入到数组中的元素，从第一个参数指定的位置开始插入。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> ] ;</div><div class="line">a.splice( <span class="number">2</span> , <span class="number">2</span> , <span class="string">'a'</span> , <span class="string">'b'</span> , [ <span class="string">'c'</span> ] ) ; <span class="comment">// [ 1 , 2 , 'a' , 'b' , [ 'c' ] , 5 ]</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><em>push()</em>和<em>pop()</em>方法允许将数组当作栈来使用，都是修改原有的数组。</p>
+<ul>
+<li>push()方法，在数组的尾部添加一个或多个元素，并且返回数组的新长度。</li>
+<li>pop()方法相反，它删除数组的最后一个元素，并且返回它删除的值。</li>
+</ul>
+</li>
+<li><p><em>unshift()</em>和shift()方法，在数组的头部进行元素的插入和删除操作。</p>
+<ul>
+<li>unshift()在数组的头部添加一个或多个元素，返回数组的新长度。多个参数时，插入的元素顺序和参数顺序一致。</li>
+<li>shift()删除数组的第一个元素并且将其返回。</li>
+</ul>
+</li>
+<li><p><em>toString()</em>和<em>toLocaleString()</em>方法，将数组的每个元素转化为字符串（如有必要，将调用元素的toString()方法），并且输出用逗号分隔的字符串列表。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> ].toString() <span class="comment">// "1,2,3"</span></div><div class="line">[ <span class="string">'a'</span> , <span class="string">'b'</span> , <span class="string">'c'</span> ].toString() <span class="comment">// "a,b,c"</span></div><div class="line">[ <span class="number">1</span> , [ <span class="number">2</span> , <span class="string">'c'</span> ] ].toString() <span class="comment">// "1,2,c"</span></div><div class="line"><span class="comment">// 这里和不使用参数的join()方法返回的字符串一致</span></div></pre></td></tr></table></figure>
+<ul>
+<li>toLocaleString()是toString()方法的本地化版本，它调用元素的toLocaleString()方法将每个数组元素转化为字符串，使用本地化的（或者自定义实现的）分隔符将这些字符串连接起来生成最终的字符串。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 不同的区域设置和语言设置，执行的输出结果可能不同。</span></div><div class="line">[ <span class="number">1</span> , [ <span class="number">2</span> , <span class="string">'c'</span> ] ].toLocaleString() <span class="comment">// "1,2,c"</span></div><div class="line">[ <span class="keyword">new</span> <span class="built_in">Date</span>() ].toLocaleString()		 <span class="comment">// "2017/1/11 上午10:31:37"</span></div><div class="line">[ <span class="number">15.26440</span> ].toLocaleString()		 <span class="comment">// "15.264"</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="ECMAScript5中数组的方法"><a href="#ECMAScript5中数组的方法" class="headerlink" title="ECMAScript5中数组的方法"></a>ECMAScript5中数组的方法</h4><ul>
+<li><p><em>forEach()</em>方法从头至尾遍历数组，为每个元素调用指定的函数。</p>
+</li>
+<li><p><em>map()</em>方法将调用的每个元素传递给指定的函数，并且返回一个数组，它包含该函数的返回值。</p>
+</li>
+<li><p><em>filter()</em>方法返回的数组元素是调用的数组的一个子集，filter()会跳过稀疏数组中缺少的元素，它的返回数组总是稠密的。</p>
+</li>
+<li><p><em>every()</em>和<em>some()</em>方法是数组的逻辑判定：它们对数组元素应用指定的函数进行判定，返回true和false。</p>
+<ul>
+<li><p>every()方法针对所有元素调用判定函数，都返回true时，它才返回true。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> ] ;</div><div class="line">a.every( <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123; <span class="keyword">return</span> x &lt; <span class="number">10</span> ; &#125; )	<span class="comment">// true</span></div><div class="line">a.every( <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123; <span class="keyword">return</span> x % <span class="number">2</span> === <span class="number">0</span> ; &#125; )	<span class="comment">// false</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>some()方法当数组中至少有一个元素调用判定函数返回true时，它就返回true；否则返回false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> ] ;</div><div class="line">a.some( <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123; <span class="keyword">return</span> x % <span class="number">2</span> === <span class="number">0</span> ; &#125; )	<span class="comment">// true</span></div><div class="line">a.some( <span class="built_in">isNaN</span> )									<span class="comment">// false</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在空数组上调用时，every()返回true，some()返回false。</p>
+</li>
+<li><p>every()判定函数第一次返回false时，会立即终止遍历，返回false；some()判定函数第一次返回true，会立即终止遍历，返回true。</p>
+</li>
+</ul>
+</li>
+<li><p><em>reduce()</em>和<em>reduceRight()</em>方法使用指定的函数将数组进行组合。</p>
+</li>
+<li><p><em>indexOf()</em>和<em>lastIndexOf()</em>搜索整个数组中具体给定值的元素，返回找到的第一个元素的索引，如果没有找到，就返回-1。</p>
+<ul>
+<li>indexOf()从头至尾搜索，而lastIndexOf()则反向搜索。</li>
+</ul>
+</li>
+</ul>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="JavaScript数组操作" data-url="http://www.maotingfeng.me/2017/01/12/JavaScript数组操作/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

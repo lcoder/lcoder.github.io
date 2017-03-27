@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript字符串操作 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="JavaScript字符串操作属性
+
+length返回字符串中的字符数
+
+方法
+
+charAt()*取出一个字符串中指定位置的字符
+
+charCodeAt()返回一个字符串中指定位置的字符的编码
+
+concat()将一个或多个值连接成一个字符串
+
+indexOf()和lastIndexOf()在指定的字符串中寻找一个字符或者子串，返回其索引值
+
+localeCompare()使用本地定义的顺序比较">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript字符串操作">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/12/JavaScript字符串操作/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="JavaScript字符串操作属性
+
+length返回字符串中的字符数
+
+方法
+
+charAt()*取出一个字符串中指定位置的字符
+
+charCodeAt()返回一个字符串中指定位置的字符的编码
+
+concat()将一个或多个值连接成一个字符串
+
+indexOf()和lastIndexOf()在指定的字符串中寻找一个字符或者子串，返回其索引值
+
+localeCompare()使用本地定义的顺序比较">
+<meta property="og:updated_time" content="2017-01-13T02:05:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript字符串操作">
+<meta name="twitter:description" content="JavaScript字符串操作属性
+
+length返回字符串中的字符数
+
+方法
+
+charAt()*取出一个字符串中指定位置的字符
+
+charCodeAt()返回一个字符串中指定位置的字符的编码
+
+concat()将一个或多个值连接成一个字符串
+
+indexOf()和lastIndexOf()在指定的字符串中寻找一个字符或者子串，返回其索引值
+
+localeCompare()使用本地定义的顺序比较">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript字符串操作"><span class="toc-text">JavaScript字符串操作</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript字符串操作" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript字符串操作</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="JavaScript字符串操作"><a href="#JavaScript字符串操作" class="headerlink" title="JavaScript字符串操作"></a>JavaScript字符串操作</h2><p>属性</p>
+<ul>
+<li><em>length</em>返回字符串中的字符数</li>
+</ul>
+<p>方法</p>
+<ul>
+<li><p>charAt()*取出一个字符串中指定位置的字符</p>
+</li>
+<li><p><em>charCodeAt()</em>返回一个字符串中指定位置的字符的编码</p>
+</li>
+<li><p><em>concat()</em>将一个或多个值连接成一个字符串</p>
+</li>
+<li><p><em>indexOf()</em>和<em>lastIndexOf()</em>在指定的字符串中寻找一个字符或者子串，返回其索引值</p>
+</li>
+<li><p><em>localeCompare()</em>使用本地定义的顺序比较字符串</p>
+</li>
+<li><p><em>match()</em>使用正则表达式执行查找和替换操作</p>
+</li>
+<li><p><em>replace()</em>使用正则表达式执行查找和替换操作</p>
+</li>
+<li><p><em>search()</em>在一个字符串中查找匹配某个正则表达式的子串</p>
+</li>
+<li><p><em>split()</em>在指定的分隔字符串或者正则表达式处断开，将一个字符串分割为由字符串组成的数组</p>
+</li>
+<li><p><del><em>substr()</em>提取字符串的一个子串</del>，这个方法不再是ECMAScript的标准，因此已弃用。</p>
+<ul>
+<li><p>string.substr(start,length) </p>
+<p>start表示子串的开始位置，如果是负数，则表示从尾部开始计算，-1表示最后一个字符，-2表示倒数第二个字符。</p>
+<p>length表示该子串中的字符数，如果省略，则子串会包含从开始位置到字符串结束的所有字符。</p>
+</li>
+<li><p>在IE中传入负的start不会正常工作，它们不是从string的尾部开始计算字符位置，而是从位置0开始</p>
+</li>
+</ul>
+</li>
+<li><p><em>slice()</em>返回字符串的一个切片或子串</p>
+<ul>
+<li>string.slice( start , end )<ul>
+<li>start切片开始的字符串索引，如果为负数，则从字符串的尾部开始计算。-1表示最后一个字符，-2表示倒数第二个字符，以此类推。</li>
+<li>end紧跟着切片结尾的字符串索引(不包含end位置)，如果为负数，则从字符串的尾部开始计算。如果不指定，则切片将包括从start到当前字符串结尾的所有字符。</li>
+<li>IE4中start为负数将出现错误（后续版本无这个问题），它从0的位置开始计算。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><em>substring()</em>返回字符串的一个子串。</p>
+<ul>
+<li><p>string.substring( from , to )</p>
+<ul>
+<li>from，一个非负整数，表示要提取的子串的第一个字符在string中的位置。</li>
+<li>to，一个非负整数，要提取子串的最后一个字符的位置大1，如果省略，则返回的子串将持续到string的结尾。</li>
+<li>返回子串长度总是等于to - from 。</li>
+<li>如果from等于to，则返回一个空字符串，长度为0。</li>
+<li>如果from比to大，这个方法将先交换两个参数的值，然后返回它们之间的子串。</li>
+<li>String.slice()和非标准的String.substr()也能从字符串中提取子串，但是和它们不同的是，String.substring()不接受负参数。</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>静态方法</p>
+<ul>
+<li><em>String.fromCharCode()</em>使用字符编码创建一个新的字符串</li>
+</ul>
+<blockquote>
+<p>参考资料：《JavaScript权威指南》第六版 p1034</p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="JavaScript字符串操作" data-url="http://www.maotingfeng.me/2017/01/12/JavaScript字符串操作/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

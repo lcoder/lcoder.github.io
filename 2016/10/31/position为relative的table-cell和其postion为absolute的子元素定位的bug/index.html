@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>position为relative的table-cell和其postion为absolute的子元素定位的bug | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="position为relative的table-cell和其postion为absolute的子元素定位的bug考虑如下内容：
+1234567891011121314&amp;lt;style type=&quot;text/css&quot;&amp;gt;  table &amp;#123; margin: 200px; &amp;#125;  .td &amp;#123; position: relative; width: 100px; heigh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="position为relative的table-cell和其postion为absolute的子元素定位的bug">
+<meta property="og:url" content="http://www.maotingfeng.me/2016/10/31/position为relative的table-cell和其postion为absolute的子元素定位的bug/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="position为relative的table-cell和其postion为absolute的子元素定位的bug考虑如下内容：
+1234567891011121314&amp;lt;style type=&quot;text/css&quot;&amp;gt;  table &amp;#123; margin: 200px; &amp;#125;  .td &amp;#123; position: relative; width: 100px; heigh">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug02.jpeg">
+<meta property="og:updated_time" content="2016-10-31T06:29:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="position为relative的table-cell和其postion为absolute的子元素定位的bug">
+<meta name="twitter:description" content="position为relative的table-cell和其postion为absolute的子元素定位的bug考虑如下内容：
+1234567891011121314&amp;lt;style type=&quot;text/css&quot;&amp;gt;  table &amp;#123; margin: 200px; &amp;#125;  .td &amp;#123; position: relative; width: 100px; heigh">
+<meta name="twitter:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#position为relative的table-cell和其postion为absolute的子元素定位的bug"><span class="toc-text">position为relative的table-cell和其postion为absolute的子元素定位的bug</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-position为relative的table-cell和其postion为absolute的子元素定位的bug" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">position为relative的table-cell和其postion为absolute的子元素定位的bug</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.31</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="position为relative的table-cell和其postion为absolute的子元素定位的bug"><a href="#position为relative的table-cell和其postion为absolute的子元素定位的bug" class="headerlink" title="position为relative的table-cell和其postion为absolute的子元素定位的bug"></a>position为relative的table-cell和其postion为absolute的子元素定位的bug</h2><p>考虑如下内容：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">  table &#123; margin: 200px; &#125;</div><div class="line">  .td &#123; position: relative; width: 100px; height: 100px; background-color: #f00; &#125;</div><div class="line">  .absolute &#123; position: absolute; left: -20px; top: 0; &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"td"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"absolute"</span>&gt;</span>这是内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>本该好好的按下面的显示：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg" alt="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg"></p>
+<p>可是，在firefox30版本一下( chrome,ie8910，opera38.0正常，貌似就ff有这个痛 )，就是下面的样子了：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug02.jpeg" alt=""></p>
+<p>为啥这样子呢？</p>
+<p>移步 <a href="https://www.w3.org/TR/CSS21/visuren.html#choose-position" target="_blank" rel="external">w3c</a></p>
+<blockquote>
+<p><strong>relative</strong></p>
+<p>The box’s position is calculated according to the <a href="https://www.w3.org/TR/CSS21/visuren.html#normal-flow" target="_blank" rel="external">normal flow</a> (this is called the position in normal flow). Then the box is offset <a href="https://www.w3.org/TR/CSS21/visuren.html#relative-positioning" target="_blank" rel="external">relative</a> to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. The effect of ‘position:relative’ on table-row-group, table-header-group, table-footer-group, table-row, table-column-group, table-column, <strong>table-cell</strong>, and table-caption elements is undefined.</p>
+</blockquote>
+<p>可以看出，table-cell属性的元素其relative属性无效。</p>
+<p>解决方案呢？</p>
+<ul>
+<li>可以在td里面或者table-cell元素的内部插入一个div，然后将其设置为postion relative，不要直接在cell类的元素中直接设置position relative。</li>
+<li>具体方法可参考这个博文里的内容：<a href="https://davidwalsh.name/table-cell-position-absolute" target="_blank" rel="external">table-cell-position-absolute</a></li>
+</ul>
+<p>参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="external">火狐开发者社区</a>:</p>
+<blockquote>
+<p>[1] 从 Firefox 30 起，Gecko 允许 <tr>,<thead>,<tfoot>元素使用 <code>position: relative;</code> 样式以作为绝对定位元素的容器。因此在表格内的 <code>position:absolute</code>元素同样可相对于这些元素定位。在其它浏览器与旧版本 Firefox 中，对表格行或一组行设置 <code>position: relative</code>是无效的。Firefox 通过在 JS 控制台输出对添加相对定位的表格行或行组元素的如下警告信息，来帮助开发者转移到新的样式行为上，并检测可能存在的渲染问题：</tfoot></thead></tr></p>
+<p>Relative positioning of table rows and row groups is now supported. This site may need to be updated because it may depend on this feature having no effect.</p>
+</blockquote>
+<p>火狐是支持<code>tr</code>这类标签的relative，不过测试了下chrome貌似不支持。</p>
+<p>完。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="position为relative的table-cell和其postion为absolute的子元素定位的bug" data-url="http://www.maotingfeng.me/2016/10/31/position为relative的table-cell和其postion为absolute的子元素定位的bug/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

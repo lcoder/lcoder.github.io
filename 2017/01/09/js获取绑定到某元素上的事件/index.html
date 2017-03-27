@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>js获取绑定到某元素上的事件 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="js获取绑定到某元素上的事件1、如果绑定在了元素的事件属性上，则可以获取到。
+例1-1:
+123456789var div = document.getElementById(&apos;div&apos;) ;// 绑定div.onclick = function()&amp;#123; console.log( &apos;点击了div&apos; ); &amp;#125;// 获取绑定console.log( document.getEleme">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js获取绑定到某元素上的事件">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/09/js获取绑定到某元素上的事件/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="js获取绑定到某元素上的事件1、如果绑定在了元素的事件属性上，则可以获取到。
+例1-1:
+123456789var div = document.getElementById(&apos;div&apos;) ;// 绑定div.onclick = function()&amp;#123; console.log( &apos;点击了div&apos; ); &amp;#125;// 获取绑定console.log( document.getEleme">
+<meta property="og:updated_time" content="2017-01-09T14:56:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js获取绑定到某元素上的事件">
+<meta name="twitter:description" content="js获取绑定到某元素上的事件1、如果绑定在了元素的事件属性上，则可以获取到。
+例1-1:
+123456789var div = document.getElementById(&apos;div&apos;) ;// 绑定div.onclick = function()&amp;#123; console.log( &apos;点击了div&apos; ); &amp;#125;// 获取绑定console.log( document.getEleme">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js获取绑定到某元素上的事件"><span class="toc-text">js获取绑定到某元素上的事件</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-js获取绑定到某元素上的事件" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">js获取绑定到某元素上的事件</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="js获取绑定到某元素上的事件"><a href="#js获取绑定到某元素上的事件" class="headerlink" title="js获取绑定到某元素上的事件"></a>js获取绑定到某元素上的事件</h2><p>1、如果绑定在了元素的事件属性上，则可以获取到。</p>
+<p>例1-1:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>) ;</div><div class="line"><span class="comment">// 绑定</span></div><div class="line">div.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log( <span class="string">'点击了div'</span> ); &#125;</div><div class="line"></div><div class="line"><span class="comment">// 获取绑定</span></div><div class="line"><span class="built_in">console</span>.log( <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>).onclick ) ;</div><div class="line"><span class="comment">// 打印出： function () &#123; console.log('点击了div'); &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 如果未定义onclick的属性事件，则打印出：null</span></div></pre></td></tr></table></figure>
+<p>2、如果是用<code>addEventListener</code>绑定的事件，则是获取不了已经绑定的事件的。</p>
+<p>​    - 不过chrome的控制台可以拿到</p>
+<p>​    <code>getEventListeners( ele )</code>可以返回ele元素已绑定事件的对象列表。仅限调试模式的console里面使用，代码里跑是不行的。所以对开发并没有什么帮助。</p>
+<p>​    - 控制面板的<code>Elements</code>面板右侧的<code>Event Listeners</code>子面板里面有选中元素的已绑定的事件列表。</p>
+<p>​    - 之前DOM 3事件模型上有个提案，建议在元素上添加一个<code>eventListenerList</code>属性来保存已经绑定过的事件，但是貌似没有通过。所以<code>addEventListener</code>绑定的事件，想要获取已经绑定的事件处理器，是没有任何直接的机制获取的。</p>
+<p>3、如果实在想知道某个元素绑定过哪些事件，只能自己实现一个类似的精简版的缓存机制了。绑定过的标记一下，存在全局变量里，存在对应的元素上等等。对应于某些具体场景，可以先<code>removeEventListener</code>然后<code>addEventListener</code>，不过局限性很大。</p>
+<p>4、常用类库一般都封装了常用的事件操作，绑定，解绑之类的；一般都会缓存已经绑定的事件，所以从它里面可以拿到某个元素已经绑定的事件。</p>
+<p>比如jquery</p>
+<p>例1-2:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> clickEvents = $( ele ).data(<span class="string">"events"</span>).click;</div><div class="line">jQuery.each(clickEvents, <span class="function"><span class="keyword">function</span>(<span class="params">key, handlerObj</span>) </span>&#123;</div><div class="line">    alert(handlerObj.handler) <span class="comment">// alerts "function() &#123; alert('clicked!') &#125;"</span></div><div class="line">    <span class="comment">// also available: handlerObj.type, handlerObj.namespace</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>5、开发模式的调试阶段，你可以试试：<a href="http://www.sprymedia.co.uk/article/Visual+Event+2" target="_blank" rel="external">visual event</a></p>
+<p>中文简介：<a href="http://web.jobbole.com/82503/" target="_blank" rel="external">《Visual Event ：快速查看 DOM 上绑定的 JS 事件》</a></p>
+<blockquote>
+<p>参考资料🔗</p>
+<p>1、<a href="http://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript" target="_blank" rel="external">How to find event listeners on a DOM node when debugging or from the JavaScript code?</a></p>
+<p>2、<a href="https://segmentfault.com/q/1010000006829568" target="_blank" rel="external">js 有没有办法 判断一个dom元素是否已经绑定了某个事件？？</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="js获取绑定到某元素上的事件" data-url="http://www.maotingfeng.me/2017/01/09/js获取绑定到某元素上的事件/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

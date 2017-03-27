@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>npm link的使用 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="npm link的使用简单使用npm link在开发公共模块的时候很有用，当你本地开发一个公共模块时，又在自己的本地项目用到，原始的做法可能是，把公共模块，拷贝到本地项目的node_modules模块里，然后本地开发的同时，调试公共模块，这样子虽然简单但是低效。
+npm的link命令提供了简单高效的办法，在公共模块目录下，执行npm link命令，会在全局node_modules目录下生成一个符号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm link的使用">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/16/npm-link的使用/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="npm link的使用简单使用npm link在开发公共模块的时候很有用，当你本地开发一个公共模块时，又在自己的本地项目用到，原始的做法可能是，把公共模块，拷贝到本地项目的node_modules模块里，然后本地开发的同时，调试公共模块，这样子虽然简单但是低效。
+npm的link命令提供了简单高效的办法，在公共模块目录下，执行npm link命令，会在全局node_modules目录下生成一个符号">
+<meta property="og:updated_time" content="2017-01-16T14:53:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm link的使用">
+<meta name="twitter:description" content="npm link的使用简单使用npm link在开发公共模块的时候很有用，当你本地开发一个公共模块时，又在自己的本地项目用到，原始的做法可能是，把公共模块，拷贝到本地项目的node_modules模块里，然后本地开发的同时，调试公共模块，这样子虽然简单但是低效。
+npm的link命令提供了简单高效的办法，在公共模块目录下，执行npm link命令，会在全局node_modules目录下生成一个符号">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#npm-link的使用"><span class="toc-text">npm link的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#简单使用"><span class="toc-text">简单使用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#可执行脚本的开发"><span class="toc-text">可执行脚本的开发</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-npm-link的使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">npm link的使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="npm-link的使用"><a href="#npm-link的使用" class="headerlink" title="npm link的使用"></a>npm link的使用</h2><h6 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h6><p>npm link在开发公共模块的时候很有用，当你本地开发一个公共模块时，又在自己的本地项目用到，原始的做法可能是，把公共模块，拷贝到本地项目的node_modules模块里，然后本地开发的同时，调试公共模块，这样子虽然简单但是低效。</p>
+<p>npm的link命令提供了简单高效的办法，在公共模块目录下，执行<code>npm link</code>命令，会在全局<code>node_modules</code>目录下生成一个符号链接，指向本地公共模块的目录。然后在本地项目直接require进来即可，系统最后会找到全局目录下的公共模块。</p>
+<p>例1-1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  testlink npm link</div><div class="line">npm WARN hello1@ No description</div><div class="line">npm WARN hello1@ No repository field.</div><div class="line">npm WARN hello1@ No license field.</div><div class="line">/usr/local/lib/node_modules/testlink -&gt; /Users/[yourHomePath]/demo/testlink</div></pre></td></tr></table></figure>
+<h6 id="可执行脚本的开发"><a href="#可执行脚本的开发" class="headerlink" title="可执行脚本的开发"></a>可执行脚本的开发</h6><p>可执行脚本可以方便执行一些常用的命令，免去手动重复性的动作。</p>
+<p>可执行脚本sayHello：</p>
+<p>例1-2</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/usr/bin/env node</span></div><div class="line"><span class="built_in">console</span>.log( <span class="string">'hello world!'</span> , process.argv[<span class="number">2</span>] )</div></pre></td></tr></table></figure>
+<p>然后修改sayHello文件的权限（读取r的权限等于4；写入w的权限等于2；执行x的权限等于1。7（4+2+1 | 读取+写入+执行））</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 755 sayHello</div></pre></td></tr></table></figure>
+<p>执行上述命令，sayHello就可以执行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sayHello</div></pre></td></tr></table></figure>
+<p>这种形式，需要每次执行sayHello命令需要加上路径前缀。更合理的做法是使用bin。</p>
+<p>在公共模块的package.json文件里加上如下代码</p>
+<p>例1-3</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"name"</span>: <span class="string">"testlink"</span> ,</div><div class="line">    <span class="string">"bin"</span>: &#123;</div><div class="line">        <span class="string">"hello"</span> : <span class="string">"sayHello"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>name执行公共模块的名字，bin执行需要全局加入的可执行命令。bin的键，全局执行的命令名，键值执行全局命令的具体可执行文件，例如<code>&quot;hello&quot;: &quot;./bin/sayHello&quot;</code>表示当前目录下的bin目录，里面的sayHello可执行文件。</p>
+<p>接下来，在公共模块的目录下，执行npm link命令</p>
+<p>例1-4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">➜  testlink npm link</div><div class="line">npm WARN testlink@ No description</div><div class="line">npm WARN testlink@ No repository field.</div><div class="line">npm WARN testlink@ No license field.</div><div class="line">/usr/local/bin/hello -&gt; /usr/local/lib/node_modules/testlink/sayHello</div><div class="line">/usr/local/lib/node_modules/testlink -&gt; /Users/[yourHomePath]/demo/testlink</div></pre></td></tr></table></figure>
+<p>可以看出hello的全局执行的命令名，映射到了<code>/usr/local/lib/node_modules/testlink/sayHello</code>这个具体的可执行文件（ 注意⚠️，全局node_modules下的testlink目录是个符号链接，但是读写效果和具体文件路径一样 ）。然后<code>/usr/local/lib/node_modules/testlink</code>全局的模块(符号链接)，映射到了具体本地的<code>/Users/[yourHomePath]/demo/testlink</code>公共模块开发目录。</p>
+<p>接下来，执行sayHello可执行文件不需要加上路径前缀了，在任何目录下，执行</p>
+<p>例1-5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hello &apos;abc&apos;</div><div class="line"># 打印出</div><div class="line">hello world! abc</div></pre></td></tr></table></figure>
+<p>现在比每次加目录前缀方便多了。</p>
+<blockquote>
+<p>参考资料</p>
+<p>1、<a href="http://www.ruanyifeng.com/blog/2015/05/command-line-with-node.html" target="_blank" rel="external">《Node.js 命令行程序开发教程》</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="npm link的使用" data-url="http://www.maotingfeng.me/2017/01/16/npm-link的使用/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

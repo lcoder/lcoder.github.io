@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>angular的ngRoute详解 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="angular的ngRoute详解​    AngularJS的路由其实是一种纯前端的解决方案。不同于后端的路由，后端的路由是匹配不同的路由，输出不同的内容，浏览器拿到当前路由的内容，直接渲染展示。AngularJS的路由，当请求了这个url，根据其路由匹配规则，来匹配当前的url，然后请求模版，然后把数据结合模版插入到ng-view中去。总结就是，局部刷新体现在url的变更上。url变更，就可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular的ngRoute详解">
+<meta property="og:url" content="http://www.maotingfeng.me/2016/10/30/angular的ngRoute详解/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="angular的ngRoute详解​    AngularJS的路由其实是一种纯前端的解决方案。不同于后端的路由，后端的路由是匹配不同的路由，输出不同的内容，浏览器拿到当前路由的内容，直接渲染展示。AngularJS的路由，当请求了这个url，根据其路由匹配规则，来匹配当前的url，然后请求模版，然后把数据结合模版插入到ng-view中去。总结就是，局部刷新体现在url的变更上。url变更，就可以">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-files.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-demo.jpeg">
+<meta property="og:updated_time" content="2016-10-30T15:12:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular的ngRoute详解">
+<meta name="twitter:description" content="angular的ngRoute详解​    AngularJS的路由其实是一种纯前端的解决方案。不同于后端的路由，后端的路由是匹配不同的路由，输出不同的内容，浏览器拿到当前路由的内容，直接渲染展示。AngularJS的路由，当请求了这个url，根据其路由匹配规则，来匹配当前的url，然后请求模版，然后把数据结合模版插入到ng-view中去。总结就是，局部刷新体现在url的变更上。url变更，就可以">
+<meta name="twitter:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-files.jpeg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#angular的ngRoute详解"><span class="toc-text">angular的ngRoute详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#routeParams"><span class="toc-text">$routeParams</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由配置中的resolve"><span class="toc-text">路由配置中的resolve</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-angular的ngRoute详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">angular的ngRoute详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="angular的ngRoute详解"><a href="#angular的ngRoute详解" class="headerlink" title="angular的ngRoute详解"></a>angular的ngRoute详解</h1><p>​    AngularJS的路由其实是一种纯前端的解决方案。不同于后端的路由，后端的路由是匹配不同的路由，输出不同的内容，浏览器拿到当前路由的内容，直接渲染展示。AngularJS的路由，当请求了这个url，根据其路由匹配规则，来匹配当前的url，然后请求模版，然后把数据结合模版插入到ng-view中去。总结就是，局部刷新体现在url的变更上。url变更，就可以记录到历史中去了，方便用户浏览历史，回退操作。相对于单纯的ajax局部刷新，优点还是很明显的。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>文件目录结构：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-files.jpeg" alt="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-files.jpeg"></p>
+<p>index.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>angular ngRoute测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/angular.js/1.5.8/angular-route.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"routeApp"</span> <span class="attr">ng-controller</span>=<span class="string">"routeController"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Angular Route Demo<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#/home"</span>&gt;</span>home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#/post"</span>&gt;</span>post<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#/about"</span>&gt;</span>about<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-view</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/js/post.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/js/index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>home.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是home的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>about.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是about的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>post.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是post的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#/post/19"</span>&gt;</span>跳转到id为19号的文章<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>post-id.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是post-id中的内容，动态获取到的id参数为:&#123;&#123;post_id&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>运行可看到如下界面：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-demo.jpeg" alt="http://oco9w3mgp.bkt.clouddn.com/blog_images/angular-route-demo.jpeg"></p>
+<p>可以看到<code>ng-view</code>标识的属性元素，被<code>home.html</code>的内容填充了。</p>
+<p>post.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">angular.module( <span class="string">'Module.Post'</span> , [<span class="string">'ngRoute'</span>] )</div><div class="line">.config([<span class="string">'$routeProvider'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$routeProvider</span>)</span>&#123;</div><div class="line">    $routeProvider.when(<span class="string">'/post'</span>,&#123;</div><div class="line">        templateUrl: <span class="string">'post.html'</span> ,</div><div class="line">        controller: <span class="string">'PostController'</span></div><div class="line">    &#125;).when(<span class="string">'/post/:post_id'</span>,&#123;</div><div class="line">        templateUrl: <span class="string">'post-id.html'</span> ,</div><div class="line">        controller: <span class="string">'PostIdController'</span></div><div class="line">    &#125;)</div><div class="line">&#125;]).controller( <span class="string">'PostController'</span> , [ <span class="string">'$scope'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $scope </span>)</span>&#123;</div><div class="line"></div><div class="line">&#125; ] ).controller( <span class="string">'PostIdController'</span> , [ <span class="string">'$scope'</span> , <span class="string">'$routeParams'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $scope , $routeParams </span>)</span>&#123;</div><div class="line">    $scope.post_id = <span class="string">'$routeParams.post_id = '</span> + $routeParams.post_id + <span class="string">'。'</span> ;</div><div class="line">&#125; ] ) ;</div></pre></td></tr></table></figure>
+<p>index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">angular.module( <span class="string">'routeApp'</span> , [<span class="string">'ngRoute'</span>,<span class="string">'Module.Post'</span>] )</div><div class="line">.config([<span class="string">'$routeProvider'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$routeProvider</span>)</span>&#123;</div><div class="line">    $routeProvider.when(<span class="string">'/home'</span>,&#123;</div><div class="line">        templateUrl: <span class="string">'home.html'</span> ,</div><div class="line">        controller: <span class="string">'HomeController'</span></div><div class="line">    &#125;).when(<span class="string">'/about'</span>,&#123;</div><div class="line">        templateUrl: <span class="string">'about.html'</span> ,</div><div class="line">        controller: <span class="string">'AboutController'</span> ,</div><div class="line">        resolve: &#123;</div><div class="line">            longTime: [ <span class="string">'$q'</span> , <span class="string">'$timeout'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $q , $timeout </span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> deferred = $q.defer() ;</div><div class="line">                $timeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    deferred.resolve( <span class="string">'耗时3秒的操作完成了'</span> );</div><div class="line">                &#125; , <span class="number">3000</span> ) ;</div><div class="line">                <span class="keyword">return</span> deferred.promise ;</div><div class="line">            &#125; ]</div><div class="line">        &#125;</div><div class="line">    &#125;).otherwise(<span class="string">'/home'</span>)</div><div class="line">&#125;]).controller( <span class="string">'routeController'</span> , [ <span class="string">'$scope'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $scope </span>)</span>&#123;</div><div class="line"></div><div class="line">&#125; ] ).controller( <span class="string">'HomeController'</span> , [ <span class="string">'$scope'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $scope </span>)</span>&#123;</div><div class="line"></div><div class="line">&#125; ] ).controller( <span class="string">'AboutController'</span> , [ <span class="string">'$scope'</span> , <span class="string">'longTime'</span> , <span class="function"><span class="keyword">function</span>(<span class="params"> $scope , longTime </span>)</span>&#123;</div><div class="line">    <span class="comment">// longTime == '耗时3秒的操作完成了'</span></div><div class="line">&#125; ] ) ;</div></pre></td></tr></table></figure>
+<p>需要注意的几点：</p>
+<ul>
+<li>module需要导入ngRoute模块</li>
+<li>$routeProvider的when方法，接收两个参数，第一个参数是路由，第二个参数是路由配置参数。</li>
+<li>otherwise用于默认的路由参数，类似导致404的路由，都会被重定向到这个默认的路由里。</li>
+<li>推荐<code>post.js</code>中的写法，模块化路由，讲相关的路由封装到一个post.js中，然后其它模块导入这个模块。</li>
+</ul>
+<h3 id="routeParams"><a href="#routeParams" class="headerlink" title="$routeParams"></a>$routeParams</h3><p>在<code>post.js</code>中，我们使用<code>$routeProvider</code>配置的第二个路由是这样的<code>/post/:post_id</code>。路由中的<code>/:post_id</code>其实是一个参数，它将匹配类似<code>/post/001</code>这种url，其中<strong>001</strong>就是这个<code>:post_id</code>的值。我们在路由对应的控制器中，可以通过<code>$routeParams</code>参数来获取这个url参数。</p>
+<h3 id="路由配置中的resolve"><a href="#路由配置中的resolve" class="headerlink" title="路由配置中的resolve"></a>路由配置中的resolve</h3><p>在配置路由时，配置<code>resolve</code>选项。配置<code>resolve</code>选项意味着，在进入这个路由之前就必须等待<code>resolve</code>中的数据返回。</p>
+<p>一般用于进入某个路由比较耗时，比如新闻标题进入新闻详情，新闻详情页需要ajax请求后台，后台返回数据之前，这个路由其实不应该执行，而是应该等待后台响应数据。这里一个加一个loading gif之类的动画。当ajax完成之后，angular通过注册resolve返回的promise对象的then方法，得知数据已经拿到了，把模版填充到<code>ng-view</code>中，然后执行对应路由的控制器。整个过程完成</p>
+<p>需要注意的是：</p>
+<ul>
+<li>可以将resolve配置中的键，本例是<code>AboutController</code>中的<code>longTime</code>键，可以将它注入其控制器中，然后就可以拿到后台返回的值了，本例返回的是：<code>&#39;耗时3秒的操作完成了&#39;</code>。</li>
+</ul>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="angular的ngRoute详解" data-url="http://www.maotingfeng.me/2016/10/30/angular的ngRoute详解/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

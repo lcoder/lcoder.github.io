@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>当display:table-cell的元素设置了position:absolute失效的bug | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="当display-table-cell的元素设置了position-absolute失效的bug问题复现：
+12345678910111213141516171819202122&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;title&amp;gt;01 Demo&amp;lt;/title&amp;gt;        &amp;lt;style type=&quot;text/css&quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当display:table-cell的元素设置了position:absolute失效的bug">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/01/13/当display-table-cell的元素设置了position-absolute失效的bug/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="当display-table-cell的元素设置了position-absolute失效的bug问题复现：
+12345678910111213141516171819202122&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;title&amp;gt;01 Demo&amp;lt;/title&amp;gt;        &amp;lt;style type=&quot;text/css&quot;&amp;gt;">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/display-cell-relative.jpeg">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/display-cell-absolute.jpeg">
+<meta property="og:updated_time" content="2017-01-13T04:02:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="当display:table-cell的元素设置了position:absolute失效的bug">
+<meta name="twitter:description" content="当display-table-cell的元素设置了position-absolute失效的bug问题复现：
+12345678910111213141516171819202122&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;title&amp;gt;01 Demo&amp;lt;/title&amp;gt;        &amp;lt;style type=&quot;text/css&quot;&amp;gt;">
+<meta name="twitter:image" content="http://oco9w3mgp.bkt.clouddn.com/display-cell-relative.jpeg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#当display-table-cell的元素设置了position-absolute失效的bug"><span class="toc-text">当display-table-cell的元素设置了position-absolute失效的bug</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-当display-table-cell的元素设置了position-absolute失效的bug" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">当display:table-cell的元素设置了position:absolute失效的bug</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.01.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="当display-table-cell的元素设置了position-absolute失效的bug"><a href="#当display-table-cell的元素设置了position-absolute失效的bug" class="headerlink" title="当display-table-cell的元素设置了position-absolute失效的bug"></a>当display-table-cell的元素设置了position-absolute失效的bug</h2><p>问题复现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>01 Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">            #banner &#123;</div><div class="line">              position: relative;</div><div class="line">              display: table-cell;</div><div class="line">              width: 200px;</div><div class="line">              height: 200px;</div><div class="line">              overflow: hidden;</div><div class="line">              text-align: center;</div><div class="line">              vertical-align: middle;</div><div class="line">              background-color: #f00;</div><div class="line">            &#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"banner"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"50"</span> <span class="attr">height</span>=<span class="string">"50"</span> <span class="attr">src</span>=<span class="string">"https://lh3.googleusercontent.com/-aVJFt11BsXk/AAAAAAAAAAI/AAAAAAAAAAA/AKB_U8u7r4-EjGt5Fx6T-2ESqGLFt4xfxQ/s32-c-mo/photo.jpg"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>预览效果：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/display-cell-relative.jpeg" alt="display-cell-relative"></p>
+<p>但是当把<code>#banner</code>的postion属性设置成<code>absolute</code>时，display:table-cell就失效了，#banner就变回了普通的display:div元素了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#banner</span> &#123;</div><div class="line">  <span class="attribute">position</span>: absolute;		<span class="comment">/*从relative改成absolute*/</span></div><div class="line">  <span class="attribute">display</span>: table-cell;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">  <span class="attribute">text-align</span>: center;</div><div class="line">  <span class="attribute">vertical-align</span>: middle;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#f00</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>预览效果</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/display-cell-absolute.jpeg" alt="display-cell-absolute"></p>
+<p>原因是：</p>
+<blockquote>
+<p>The declaration <code>position: absolute</code> takes your element out from wherever it is and place it relative to innermost element that is not declared static. In no longer participate in the alignment of any other element, hence it no longer serve as table-cell (the declaration has no effect). </p>
+<p>声明为absolute将元素从任何位置移出，并将其放置为相对于未声明为static的最内层元素。 不再参与任何其他元素的对齐，因此它不再用作表格单元格（声明没有效果）[google翻译]。 </p>
+</blockquote>
+<p>就是应用positioin absolute之后table-cell的属性就会失效。</p>
+<p>解决办法：</p>
+<ul>
+<li>也就只能再包裹一层元素了。不要把absolute应用在table-cell的属性上！</li>
+<li>不用table-cell的话，用css3的flex也能解决垂直居中的问题，而且无absolute的这个问题。<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">Flex 布局教程</a></li>
+</ul>
+<p>看MDN上，对display属性的定义和对position属性的定义未找到相关信息。就用了stakoverflow上的这个答案。</p>
+<blockquote>
+<p>参考资料：</p>
+<p>1、<a href="http://stackoverflow.com/questions/1608983/why-display-table-cell-is-broken-when-position-absolute" target="_blank" rel="external">《why-display-table-cell-is-broken-when-position-absolute》</a></p>
+<p>2、<a href="https://davidwalsh.name/table-cell-position-absolute" target="_blank" rel="external">《Table Cell and Position Absolute》</a></p>
+<p>3、<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="external">《display MDN》</a></p>
+<p>4、<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="external">《position MDN》</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="当display:table-cell的元素设置了position:absolute失效的bug" data-url="http://www.maotingfeng.me/2017/01/13/当display-table-cell的元素设置了position-absolute失效的bug/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

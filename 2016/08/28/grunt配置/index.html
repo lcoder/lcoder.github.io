@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>grunt配置 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233module.exports = function(grunt) &amp;#123;    // Project configuration.    grunt.initConfig(&amp;#123;        pkg: grunt.file.readJSON(&amp;apos;package.j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grunt配置">
+<meta property="og:url" content="http://www.maotingfeng.me/2016/08/28/grunt配置/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233module.exports = function(grunt) &amp;#123;    // Project configuration.    grunt.initConfig(&amp;#123;        pkg: grunt.file.readJSON(&amp;apos;package.j">
+<meta property="og:updated_time" content="2016-08-28T03:50:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="grunt配置">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233module.exports = function(grunt) &amp;#123;    // Project configuration.    grunt.initConfig(&amp;#123;        pkg: grunt.file.readJSON(&amp;apos;package.j">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-grunt配置" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">grunt配置</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">module.exports = function(grunt) &#123;</div><div class="line"></div><div class="line">    // Project configuration.</div><div class="line">    grunt.initConfig(&#123;</div><div class="line">        pkg: grunt.file.readJSON(&apos;package.json&apos;),</div><div class="line">        cssmin: &#123;</div><div class="line">            minify: &#123;</div><div class="line">                expand: true,</div><div class="line">                cwd: &apos;static/css/&apos;,</div><div class="line">                src: [&apos;*.css&apos;, &apos;!*.min.css&apos;],</div><div class="line">                dest: &apos;static_src/css/&apos;,</div><div class="line">                ext: &apos;.min.css&apos;</div><div class="line">            &#125;,</div><div class="line">            combine: &#123;</div><div class="line">                files: &#123;</div><div class="line">                    &apos;css/out.min.css&apos;: [&apos;css/part1.min.css&apos;, &apos;css/part2.min.css&apos;]</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line"></div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-uglify&apos;);//压缩代码</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-jshint&apos;);//检查语法错误</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-concat&apos;);//合并文件</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-watch&apos;);//自动执行</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-cssmin&apos;);//最小化css</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-requirejs&apos;);</div><div class="line"></div><div class="line">    grunt.registerTask(&apos;default&apos;, [&apos;jshint&apos;, &apos;concat&apos;, &apos;uglify&apos;]);</div><div class="line">    grunt.registerTask(&apos;check&apos;, [&apos;jshint&apos;]);</div><div class="line">    grunt.registerTask(&apos;default&apos;, [&apos;cssmin:minify&apos;,&apos;cssmin:combine&apos;]);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="grunt配置" data-url="http://www.maotingfeng.me/2016/08/28/grunt配置/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
