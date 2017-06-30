@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于进程对象process将日志、错误写入不同文件 | lcoder的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="lcoder,前端,设计,前端开发,用户体验,设计,css3,design,nodejs,JavaScript,html5" />
+  
+
+  <meta name="description" content="process同样是一个全局对象，它提供了对标准流的访问接口。而process.stdout和process.stderr都是可写流，要将process.stdout和process.stderr中的数据写入不同的文件，首先需要将其转换为一个可读流或双工流：
+1234567891011121314151617181920212223const fs = require(&apos;fs&apos;);const st">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于进程对象process将日志、错误写入不同文件">
+<meta property="og:url" content="http://www.maotingfeng.me/2017/06/30/基于进程对象process将日志、错误写入不同文件/index.html">
+<meta property="og:site_name" content="lcoder的博客">
+<meta property="og:description" content="process同样是一个全局对象，它提供了对标准流的访问接口。而process.stdout和process.stderr都是可写流，要将process.stdout和process.stderr中的数据写入不同的文件，首先需要将其转换为一个可读流或双工流：
+1234567891011121314151617181920212223const fs = require(&apos;fs&apos;);const st">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/process_stdout_success.png">
+<meta property="og:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/process_stdout_error.png">
+<meta property="og:updated_time" content="2017-06-30T11:50:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于进程对象process将日志、错误写入不同文件">
+<meta name="twitter:description" content="process同样是一个全局对象，它提供了对标准流的访问接口。而process.stdout和process.stderr都是可写流，要将process.stdout和process.stderr中的数据写入不同的文件，首先需要将其转换为一个可读流或双工流：
+1234567891011121314151617181920212223const fs = require(&apos;fs&apos;);const st">
+<meta name="twitter:image" content="http://oco9w3mgp.bkt.clouddn.com/blog_images/process_stdout_success.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/RSS/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-基于进程对象process将日志、错误写入不同文件" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">基于进程对象process将日志、错误写入不同文件</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.06.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>maotingfeng</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="http://itbilu.com/nodejs/core/EyEJTxF8.html" target="_blank" rel="external"><code>process</code></a>同样是一个全局对象，它提供了对标准流的访问接口。而<code>process.stdout</code>和<code>process.stderr</code>都是<a href="http://itbilu.com/nodejs/core/VyJhveS7l.html" target="_blank" rel="external">可写流</a>，要将<code>process.stdout</code>和<code>process.stderr</code>中的数据写入不同的文件，首先需要将其转换为一个<a href="http://itbilu.com/nodejs/core/4JJTifN7l.html" target="_blank" rel="external">可读流</a>或<a href="http://itbilu.com/nodejs/core/VkE2Y0GQl.html#stream-duplex-transform" target="_blank" rel="external">双工流</a>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</div><div class="line"><span class="keyword">const</span> rawStdout = process.stdout;</div><div class="line"><span class="keyword">const</span> rawStderr = process.stderr;</div><div class="line"><span class="comment">// 创建一个PassThrough流</span></div><div class="line"><span class="keyword">const</span> newStdout = <span class="keyword">new</span> stream.PassThrough();</div><div class="line"><span class="keyword">const</span> newStderr = <span class="keyword">new</span> stream.PassThrough();</div><div class="line"><span class="comment">// 重新定义 process.stdout 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stdout'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">// 原样返回  PassThrough</span></div><div class="line">  <span class="keyword">return</span> newStdout;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 重新定义 process.stderr 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stderr'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">// 原样返回  PassThrough</span></div><div class="line">  <span class="keyword">return</span> newStderr;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 将 process.stdout 中的数据写入 stdout.log 文件</span></div><div class="line">newStdout.pipe(fs.createWriteStream(<span class="string">'./stdout.log'</span>));</div><div class="line"><span class="comment">// 将 process.stderr 中的数据写入 stderr.log 文件</span></div><div class="line">newStderr.pipe(fs.createWriteStream(<span class="string">'./stderr.log'</span>));</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'向 stdout 中写入数据'</span>);</div><div class="line"><span class="built_in">console</span>.error(<span class="string">'向 stderr 中写入数据'</span>);</div></pre></td></tr></table></figure>
+<p>按这个来可以实现一个基础版的日志，不过<code>fs.createWriteStream</code>方法最好用追加的模式<code>newStdout.pipe(fs.createWriteStream(&#39;./stdout.log&#39;,{&#39;flags&#39;:&#39;a&#39;}));</code>这样子每次重启就不会把之前的日志覆盖掉了。按目前的代码，可以很好的工作。</p>
+<p>然后当我的程序在express中跑的时候，会发现<code>console.log</code>输入的内容直接在控制台中打印？而对应的日志文件<code>stdout.log</code>为空，怎么运行不了了？我的日志呢？</p>
+<p>追查原因，发现是代码引入了consolidate（多模版引擎共存<code>v0.14.1</code>）模块引入问题，继续追查，发现是consolidate中引入的bluebird模版的问题，继续追查，发现是bluebird.js引入的promise.js的问题，继续追查，发现是promise.js引入的debuggability.js的问题。debugger半天，代码终于停留在了让我感觉毛骨悚然的地方,代码第802行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typeof</span> <span class="built_in">console</span> !== <span class="string">"undefined"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">console</span>.warn !== <span class="string">"undefined"</span></div></pre></td></tr></table></figure>
+<p>细看一下，不就是判断console是否为undefined吗？接着校验console.warn是否为undefined吗？怎么回事？</p>
+<p>先看看代码正常的情况：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> stream_mao = <span class="built_in">require</span>(<span class="string">'stream'</span>);</div><div class="line"><span class="keyword">var</span> rawStdout = process.stdout;</div><div class="line"><span class="keyword">var</span> rawStderr = process.stderr;</div><div class="line"><span class="comment">// 创建一个PassThrough流</span></div><div class="line"><span class="keyword">var</span> newStdout = <span class="keyword">new</span> stream_mao.PassThrough();</div><div class="line"><span class="keyword">var</span> newStderr = <span class="keyword">new</span> stream_mao.PassThrough();</div><div class="line"><span class="comment">// 重新定义 process.stdout 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stdout'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 原样返回  PassThrough</span></div><div class="line">    <span class="keyword">return</span> newStdout;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 重新定义 process.stderr 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stderr'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 原样返回  PassThrough</span></div><div class="line">    <span class="keyword">return</span> newStderr;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 将 process.stdout 中的数据写入 stdout.log 文件</span></div><div class="line">newStdout.pipe(fs.createWriteStream( process.cwd() + <span class="string">'/stdout.log'</span>,&#123;<span class="string">'flags'</span>:<span class="string">'a'</span>&#125;));</div><div class="line"><span class="comment">// 将 process.stderr 中的数据写入 stderr.log 文件</span></div><div class="line">newStderr.pipe(fs.createWriteStream(process.cwd() + <span class="string">'/stderr.log'</span>,&#123;<span class="string">'flags'</span>:<span class="string">'a'</span>&#125;));</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'向 stdout 中写入数据'</span>);</div><div class="line"><span class="built_in">console</span>.error(<span class="string">'向 stderr 中写入数据'</span>);</div></pre></td></tr></table></figure>
+<p>控制台测试：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/process_stdout_success.png" alt="process_stdout_success控制台打印"></p>
+<p>日志写入成功。</p>
+<p>接着看看添加那句逻辑运算符代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> stream_mao = <span class="built_in">require</span>(<span class="string">'stream'</span>);</div><div class="line"><span class="keyword">var</span> rawStdout = process.stdout;</div><div class="line"><span class="keyword">var</span> rawStderr = process.stderr;</div><div class="line"><span class="comment">// 创建一个PassThrough流</span></div><div class="line"><span class="keyword">var</span> newStdout = <span class="keyword">new</span> stream_mao.PassThrough();</div><div class="line"><span class="keyword">var</span> newStderr = <span class="keyword">new</span> stream_mao.PassThrough();</div><div class="line"><span class="comment">// 就添加了这行代码，其他不变</span></div><div class="line"><span class="keyword">typeof</span> <span class="built_in">console</span> !== <span class="string">"undefined"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">console</span>.warn !== <span class="string">"undefined"</span>;</div><div class="line"><span class="comment">// 重新定义 process.stdout 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stdout'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 原样返回  PassThrough</span></div><div class="line">    <span class="keyword">return</span> newStdout;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 重新定义 process.stderr 的Getter</span></div><div class="line">process.__defineGetter__(<span class="string">'stderr'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 原样返回  PassThrough</span></div><div class="line">    <span class="keyword">return</span> newStderr;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 将 process.stdout 中的数据写入 stdout.log 文件</span></div><div class="line">newStdout.pipe(fs.createWriteStream( process.cwd() + <span class="string">'/stdout.log'</span>,&#123;<span class="string">'flags'</span>:<span class="string">'a'</span>&#125;));</div><div class="line"><span class="comment">// 将 process.stderr 中的数据写入 stderr.log 文件</span></div><div class="line">newStderr.pipe(fs.createWriteStream(process.cwd() + <span class="string">'/stderr.log'</span>,&#123;<span class="string">'flags'</span>:<span class="string">'a'</span>&#125;));</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'向 stdout 中写入数据'</span>);</div><div class="line"><span class="built_in">console</span>.error(<span class="string">'向 stderr 中写入数据'</span>);</div></pre></td></tr></table></figure>
+<p>控制台测试：</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/process_stdout_error.png" alt="process_stdout_error控制台打印"></p>
+<p>也就是日志文件没写入。</p>
+<p>我就在第8行加了这句诡异的代码，我的世界就崩溃了。。。</p>
+<p>我的node版本是：<code>v0.12.7</code>，应该是系统问题，不是引入的第三方模块的问题，有解决方案的可以共享</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lcoder</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/RSS/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="基于进程对象process将日志、错误写入不同文件" data-url="http://www.maotingfeng.me/2017/06/30/基于进程对象process将日志、错误写入不同文件/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lcoder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
