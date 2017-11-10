@@ -5,7 +5,7 @@
   <link href="//RSS/atom.xml" rel="self"/>
   
   <link href="http://www.maotingfeng.me/"/>
-  <updated>2017-06-30T11:50:07.000Z</updated>
+  <updated>2017-11-10T06:31:45.000Z</updated>
   <id>http://www.maotingfeng.me/</id>
   
   <author>
@@ -14,6 +14,267 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>create-react-app使用笔记</title>
+    <link href="http://www.maotingfeng.me/2017/11/10/create-react-app%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.maotingfeng.me/2017/11/10/create-react-app使用笔记/</id>
+    <published>2017-11-10T06:30:58.000Z</published>
+    <updated>2017-11-10T06:31:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="create-react-app使用笔记"><a href="#create-react-app使用笔记" class="headerlink" title="create-react-app使用笔记"></a>create-react-app使用笔记</h2><p>官方脚手架功能强大，各个需求点也是考虑到了，是开发react应用的神器。</p>
+<p>###如何使用</p>
+<p>​    <code>create-react-app</code>依赖两个包,一个是<code>create-react-app</code>全局命令工具包，用来创建新的项目，就是<code>create-react-app myProject</code>命令；第二个是<code>react-scripts</code>在生成的项目中依赖的包。一般不用升级create-react-app，因为主要的react依赖都是由react-scripts来生成的，而生成的<code>react-scripts</code>会自动下载最新 版，所以你用的react包也是最新版本的。</p>
+<p>###create-react-app生成的项目结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── README.md</div><div class="line">├── node_modules</div><div class="line">├── package.json</div><div class="line">├── public</div><div class="line">│   ├── favicon.ico</div><div class="line">│   ├── index.html</div><div class="line">│   └── manifest.json</div><div class="line">├── src</div><div class="line">│   ├── App.css</div><div class="line">│   ├── App.js</div><div class="line">│   ├── App.test.js</div><div class="line">│   ├── index.css</div><div class="line">│   ├── index.js</div><div class="line">│   ├── logo.svg</div><div class="line">│   └── registerServiceWorker.js</div><div class="line">└── yarn.lock</div></pre></td></tr></table></figure>
+<p>项目中必须存在的文件：</p>
+<ul>
+<li>public/index.html   html模版文件</li>
+<li>src/index.js   react应用的入口文件</li>
+</ul>
+<p>可以在<code>src</code>目录下新建N多个子集目录，只有在src下的资源，才能被webpack处理，所以一般都将js和css资源放入<code>src</code>目录下，图片资源也可以放<code>src</code>里面,</p>
+<p>官方demo则将svg资源放入了<code>src</code>中。</p>
+<h3 id="可运行的脚本"><a href="#可运行的脚本" class="headerlink" title="可运行的脚本"></a>可运行的脚本</h3><ul>
+<li><code>npm start</code>运行开发运行，默认会打开<code>http://localhost:3000</code>的浏览界，可以热更新代码</li>
+<li><code>npm test</code>运行测试脚本</li>
+<li><code>npm run build</code>打包命令，会启用react的生产环境模式，去除类型检查等，压缩代码</li>
+<li><code>npm run eject</code>暴露出默认配置文件</li>
+</ul>
+<p>###支持最新的JavaScript新功能和Polyfills</p>
+<p>该项目支持最新的JavaScript标准的超集。除了es6的语法，<code>create-react-app</code>还支持：</p>
+<ul>
+<li>指数运算符</li>
+<li>Async/await语法(ES2017)</li>
+<li>对象的解构赋值</li>
+<li>动态import 语法</li>
+<li>类静态属性</li>
+<li>JSX语法和flow语法</li>
+</ul>
+<p>另外官方仅仅包含了很少一个部分的ES6 polyfills:</p>
+<ul>
+<li>Object.assign() 支持 <a href="https://github.com/sindresorhus/object-assign" target="_blank" rel="external">object-assign</a></li>
+<li>Promise 支持，<a href="https://github.com/then/promise" target="_blank" rel="external">promise</a></li>
+<li>fetch支持，<a href="https://github.com/github/fetch" target="_blank" rel="external">whatwg-fetch</a></li>
+</ul>
+<p>所以当用到一些需要polyfills的功能时，某些polyfills需要手动添加</p>
+<p>###改变html的title</p>
+<p>找到<code>public/index.html</code>直接修改title即可，如果是单页应用，则在每个component的componentDidMount的生命周期方法中，调用document.title来修改。你也可以参考<a href="https://github.com/nfl/react-helmet" target="_blank" rel="external">React Helmet</a></p>
+<p>###导入组件</p>
+<p>支持commonjs模块语法，当然最好使用import 和 export 语法</p>
+<p>###代码分割</p>
+<p>当某些代码片段需要异步加载的时候特别有用，用法如下：</p>
+<p><code>chart.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const initChart = () =&gt; &#123; // do something... &#125;;</div><div class="line"></div><div class="line">export &#123; initChart &#125;;</div></pre></td></tr></table></figure>
+<p><code>App.js</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  click = () =&gt; &#123;</div><div class="line">    <span class="keyword">import</span>(<span class="string">'./chart.js'</span>)</div><div class="line">      .then((&#123; initChart &#125;) =&gt; &#123;</div><div class="line">        <span class="comment">// 使用 initChart() ;</span></div><div class="line">      &#125;)</div><div class="line">      .catch(err =&gt; &#123;</div><div class="line">        <span class="comment">// 错误处理</span></div><div class="line">      &#125;);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;button onClick=&#123;this.click&#125;&gt;加载图表&lt;/button&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</div></pre></td></tr></table></figure>
+<p>也可以使用<code>async/await</code>语法来使用这个特性：</p>
+<p><code>App.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  click = <span class="keyword">async</span> () =&gt; &#123;</div><div class="line">    <span class="keyword">let</span> &#123; initChart &#125; = <span class="keyword">await</span> <span class="keyword">import</span>( <span class="string">'./chart'</span> ).catch( e=&gt;<span class="built_in">console</span>.warn(e) ) ;</div><div class="line">    initChart() ;</div><div class="line">  &#125; ;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;button onClick=&#123;this.click&#125;&gt;加载图表&lt;/button&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</div></pre></td></tr></table></figure>
+<p>比用上面的语法简单清晰很多。</p>
+<p>###添加样式表</p>
+<p><code>create-react-app</code>已经内置了配置好了的webpack,可以将css当作js资源一样引入到js文件中。</p>
+<p><code>Button.css</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.Button</span> &#123; <span class="attribute">color</span>: red ; &#125;</div></pre></td></tr></table></figure>
+<p><code>Button.js</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> <span class="string">'./Button.css'</span>; <span class="comment">// 引入css资源</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="comment">// 使用</span></div><div class="line">    <span class="keyword">return</span> &lt;div className="Button" /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在开发环境中，修改css文件，可以热更新；生产环境中，则所有css文件会被打包进一个.css文件中，通过link标签注入到<code>public/index.html</code>中。这种方式，增加了迁移到其他打包工具的成本，不过对于打包工具仅仅是webpack来说很方便。</p>
+<p>另外<code>create-react-app</code>集成了插件<code>Autoprefixer</code>，可以自动帮你补全浏览器前缀。</p>
+<p>###添加图像、字体、文件</p>
+<p>引入一个文件，是告诉webpack把，这个文件引入到打包的bundle中，不像import css文件，引入一个文件，webpack会自动转化为一个字符串，如，src的url地址，href的超链接地址。</p>
+<p>比如图片的话，如果大小小雨10,000字节，则会返回一个data URI的字符串，如果大于的话，则返回相对于<code>%PUBLIC_URL%</code>的url地址。目前<code>create-react-app</code>支持bmp,gif,jpg,jpeg,png。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.png'</span>; <span class="comment">// 引入logo png资源</span></div><div class="line"><span class="built_in">console</span>.log(logo); <span class="comment">// 字符串"/logo.84287d09.png"</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Header</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// 设置src等于logo</span></div><div class="line">  <span class="keyword">return</span> &lt;img src=&#123;logo&#125; alt="Logo" /&gt;;</div><div class="line">&#125;</div><div class="line">export default Header;</div></pre></td></tr></table></figure>
+<p>webpack会根据资源的内容动态生成hash,如果以后图片有小修改，就不用加版本号了，清除缓存很方便。</p>
+<p>###正确使用<code>public</code>文件夹</p>
+<p><code>public/index.html</code>里面的内容可以随意修改，添加或者删除script标签等。</p>
+<p><code>create-react-app</code>鼓励使用import 语法来引入 样式、图片、字体文件，因为有如下好处：</p>
+<ul>
+<li>一起打包可以减少网络请求</li>
+<li>编译过程中的错误，可以预防上线出现的404错误</li>
+<li>根据内容自动生成hash，可以预防浏览器缓存</li>
+</ul>
+<p>如果将静态资源放入<code>public</code>文件夹中，它不会被webpack处理，仅仅打包之后，会被拷贝到<code>build</code>目录中。为了引用到这个资源，你需要使用一个叫<code>PUBLIC_URL</code>的变量。在<code>index.html</code>中，有如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">href</span>=<span class="string">"%PUBLIC_URL%/favicon.ico"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>只有在<code>public</code>中的文件，才可以用<code>%PUBLIC_URL%</code>获取。如果资源在src或者node_modules里面，你需要拷贝到<code>public</code>目录中去使用。</p>
+<p>当我们使用<code>yarn build</code>的时候，<code>%PUBLIC_URL%</code>会被绝对路径替换，就是网站的静态资源根目录。</p>
+<p>在JavaScript代码中，也可以通过<code>process.env.PUBLIC_URL</code>来访问，不过官方不推荐使用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;process.env.PUBLIC_URL</span> + '/<span class="attr">img</span>/<span class="attr">logo.png</span>'&#125; /&gt;</span>;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<ul>
+<li><code>public</code>里的文件不会被预处理，和压缩</li>
+<li>丢失文件，会导致404</li>
+<li>当文件改变时，需要手动重命名，或者手动添加版本号，来处理缓存问题。</li>
+</ul>
+<p>什么时候使用<code>public</code>文件夹</p>
+<ul>
+<li>需要在构建输出中具有特定名称的文件，比如manifest.webmanifest</li>
+<li>有N多图片，动态引入的图片</li>
+<li>某个js文件不想引入到bundle中</li>
+<li>一些第三方库和webpack不兼容</li>
+</ul>
+<p>###如何使用全局变量</p>
+<p>当在js代码中引入第三方的全局变量时，linter会提示，没有定义过的变量，怎么解决？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> $ = <span class="built_in">window</span>.$</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.extend( &#123;&#125; , &#123;a:<span class="number">1</span>&#125; ) ; <span class="comment">// eslint-disable-line</span></div></pre></td></tr></table></figure>
+<p>不检测当行代码</p>
+<h3 id="自动格式化代码"><a href="#自动格式化代码" class="headerlink" title="自动格式化代码"></a>自动格式化代码</h3><p><a href="https://github.com/prettier/prettier" target="_blank" rel="external">prettier</a>是一个独立的（opinionated）代码格式化工具。用它，可以确保在一个工程里有统一的代码风格。使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save husky lint-staged prettier</div></pre></td></tr></table></figure>
+<p>或者(  通过yarn安装有坑，下面会讲解 )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yarn add husky lint-staged prettier</div></pre></td></tr></table></figure>
+<ul>
+<li><code>husky</code>监听hithooks的事件，然后执行自定义的命令</li>
+<li><code>lint-staged</code>允许我们在git中已经暂存的文件里，执行脚本命令</li>
+<li><code>prettier</code>在commit之前，格式化我们的代码</li>
+</ul>
+<p>修改<code>package.json</code>文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  "scripts": &#123;</div><div class="line">+   "precommit": "lint-staged",</div><div class="line">    "start": "react-scripts start",</div><div class="line">    "build": "react-scripts build",</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  "dependencies": &#123;</div><div class="line">    // ...</div><div class="line">  &#125;,</div><div class="line">+ "lint-staged": &#123;</div><div class="line">+   "src/**/*.&#123;js,jsx,json,css&#125;": [</div><div class="line">+     "prettier --single-quote --write",</div><div class="line">+     "git add"</div><div class="line">+   ]</div><div class="line">+ &#125;,</div><div class="line">  "scripts": &#123;</div></pre></td></tr></table></figure>
+<p>现在，当我们<code>git commit -m &quot;...&quot;</code>执行的时候，<code>Prettier</code>会自动格式化已经修改过的文件，然后提交。</p>
+<p>当然，我们也可以通过<code>./node_modules/.bin/prettier --single-quote --write &quot;src/**/*.{js,jsx}&quot;</code>来格式化整个工程。</p>
+<p>通过<code>yarn</code>安装之后，可能会遇到<code>git commit</code>之后没有任何反应的坑，google之后，发现<a href="https://github.com/typicode/husky/issues/81" target="_blank" rel="external">how to setting up?</a></p>
+<p>情况一样，原来通过<code>yarn</code>安装的<code>husky</code>，默认不会执行husky的安装程序。所以解决方案就是手动执行一下安装程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node node_modules/husky/bin/install.js</div></pre></td></tr></table></figure>
+<p>看到done,就说明设置git的钩子成功了</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/WechatIMG39.jpeg" alt="手动执行husky的安装程序"></p>
+<h3 id="在Visual-Studio-Code中Debugger"><a href="#在Visual-Studio-Code中Debugger" class="headerlink" title="在Visual Studio Code中Debugger"></a>在Visual Studio Code中Debugger</h3><p>首先需要安装最新的<a href="https://code.visualstudio.com/" target="_blank" rel="external">VS Code</a>和 VS Code <a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome" target="_blank" rel="external">Chrome Debugger Extension</a> 。</p>
+<p>之后在项目根目录下新建<code>.vscode</code>文件夹，在里面新建<code>launch.json</code>，将如下代码放入其中：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</div><div class="line">  <span class="attr">"configurations"</span>: [&#123;</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Chrome"</span>,</div><div class="line">    <span class="attr">"type"</span>: <span class="string">"chrome"</span>,</div><div class="line">    <span class="attr">"request"</span>: <span class="string">"launch"</span>,</div><div class="line">    <span class="attr">"url"</span>: <span class="string">"http://localhost:3000"</span>,</div><div class="line">    <span class="attr">"webRoot"</span>: <span class="string">"$&#123;workspaceRoot&#125;/src"</span>,</div><div class="line">    <span class="attr">"sourceMapPathOverrides"</span>: &#123;</div><div class="line">      <span class="attr">"webpack:///src/*"</span>: <span class="string">"$&#123;webRoot&#125;/*"</span></div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意⚠️：如果自定义修改了HOST或者PORT,则需要修改相应的地址</p>
+</blockquote>
+<p>配置好了之后，启动<code>yarn start</code>，在<code>VS Code</code>中按<code>F5</code>或者按绿色的debug按钮进行debug。</p>
+<h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>环境变量，可以很方便的，根据某些条件，展示不同的数据，比如（根据环境，判断是否需要mock数据）；或者使用一些不在版本控制力的敏感信息；因为是在构建期间运行，所以webpack可以直接进行一些逻辑的判断，不会出现的代码直接会删除，不会进入打包文件。</p>
+<p>在项目工程中，可以使用自定义的环境变量，就像声明在js文件的普通变量一样。默认的，内置了一个<code>NODE_ENV</code>环境变量，其他的环境变量，规定必须要以<code>REACT_APP_</code>开头，以防止和其他环境变量冲突。</p>
+<p>环境变量可以只能在构建期间使用，不能在生产环境中动态使用。如果需要动态获取的话，需要服务器端支持。</p>
+<p>环境变量是定义在<code>process.env</code>对象上的，比如，定义了一个<code>REACT_APP_SECRET_CODE</code>变量，需要在js文件中使用的话，需要用<code>process.env.REACT_APP_SECRET_CODE</code>来获取。</p>
+<p>要获取当前的开发环境，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">process.env.NODE_ENV</div></pre></td></tr></table></figure>
+<ul>
+<li><code>npm start</code> 启动的话，这个值永远为<code>development</code> </li>
+<li><code>npm test</code>启动的话，这个值永远为<code>test</code></li>
+<li><code>npm run build</code>启动的话，这个值永远为<code>production</code></li>
+</ul>
+<p><code>NODE_ENV</code>这个环境变量，不允许手动修改,即使修改了也不会生效。</p>
+<p>js中使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</div><div class="line">  analytics.disable();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>public/index.html</code>中使用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>%REACT_APP_WEBSITE_NAME%<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意⚠️：</p>
+<ul>
+<li>除了NODE_ENV和PUBLIC_URL连个环境变量，其他环境变量都需要由REACT<em>APP</em>开头。</li>
+<li>环境变量只有在构建期间有效，运行期间无效。</li>
+</ul>
+</blockquote>
+<p>有两种方式定义环境变量：</p>
+<ol>
+<li><p>shell命令</p>
+<ul>
+<li>windows: <code>set REACT_APP_SECRET_CODE=abcdef&amp;&amp;npm start</code></li>
+<li>Linux,maxOs:<code>REACT_APP_SECRET_CODE=abcdef npm start</code></li>
+</ul>
+<p>这种方式，环境变量只有在shell回话中有效</p>
+</li>
+<li><p><code>.env</code>文件</p>
+<p>为了永久的使用环境变量，需要在根目录中新建一个<code>.env</code>文件</p>
+<p>.env：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">REACT_APP_SECRET_CODE=abcdef</div></pre></td></tr></table></figure>
+<p>.env文件可以添加进版本控制中( <code>.gitignore</code>中配置<code>.env*.local</code> )。</p>
+<p>还有一些其他的文件：</p>
+<ul>
+<li><code>.env</code>：默认</li>
+<li><code>.env.local</code>：本地覆盖，这个在除了test构建，其他所有构建中都有效</li>
+<li><code>.env.development</code>，<code>.env.test</code>，<code>.env.production</code>：指定构建环境中有效</li>
+<li><code>.env.development.local</code>, <code>.env.test.local</code>, <code>.env.production.local</code>：本地覆盖指定构建环境</li>
+</ul>
+<p>这些定义的优先级( 越靠近左边的，优先级越高 )：</p>
+<ul>
+<li><code>npm start</code>: <code>.env.development.local</code>, <code>.env.development</code>, <code>.env.local</code>, <code>.env</code></li>
+<li><code>npm run build</code>: <code>.env.production.local</code>, <code>.env.production</code>, <code>.env.local</code>, <code>.env</code></li>
+<li><code>npm test</code>: <code>.env.test.local</code>, <code>.env.test</code>, <code>.env</code> (注意⚠️：没有 <code>.env.local</code> )</li>
+</ul>
+</li>
+</ol>
+<h3 id="能否使用修饰器"><a href="#能否使用修饰器" class="headerlink" title="能否使用修饰器"></a>能否使用修饰器</h3><p>不能。</p>
+<ul>
+<li>这是一个试验性的建议，可能会改变。</li>
+<li>目前的规格版本没有得到Babel官方的支持。</li>
+<li>如果规范发生变化，将无法编写重构件codemod，因为Facebook内部使用它们。</li>
+</ul>
+<p>如果需要使用，可以使用<code>npm run eject</code>自己用第三方工具配置</p>
+<h3 id="开发环境中转发API请求"><a href="#开发环境中转发API请求" class="headerlink" title="开发环境中转发API请求"></a>开发环境中转发API请求</h3><p>一般生产环境的项目都有如下特征：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/             - 静态服务，返回index.ftl</div><div class="line">/todos        - 静态服务，返回index.ftl</div><div class="line">/api/todos    - 服务器拦截 /api/* 开头的请求，后端执行业务逻辑后返回</div></pre></td></tr></table></figure>
+<p>为了告诉开发服务器，如何重定向一个未知的接口请求，需要在<code>package.json</code>中添加<code>proxy</code>字段，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;proxy&quot;:&quot;http://locahost:8080&quot;</div></pre></td></tr></table></figure>
+<p>当我们发起请求，比如<code>fetch(&#39;/api/todos&#39;)</code>，开发服务器首先确认，当前不是一个静态资源，之后会转发这个请求到<code>http://localhost:8080/api/todos</code>，开发服务器只会尝试转发<code>Accept</code>头部不是<code>text/html</code>的请求。</p>
+<p>转发请求可以避免跨域请求失败：</p>
+<p><code>Fetch API cannot load http://localhost:8080/api/todos. No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. Origin &#39;http://localhost:3000&#39; is therefore not allowed access. If an opaque response serves your needs, set the request&#39;s mode to &#39;no-cors&#39; to fetch the resource with CORS disabled.</code></p>
+<p>可以扩展<code>proxy</code>：</p>
+<ul>
+<li><p>自定义代理请求</p>
+<ul>
+<li><p>修改<code>package.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  // ...</div><div class="line">  &quot;proxy&quot;: &#123;</div><div class="line">    &quot;/api&quot;: &#123;</div><div class="line">      &quot;target&quot;: &quot;&lt;url&gt;&quot;,</div><div class="line">      &quot;ws&quot;: true</div><div class="line">      // ...</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有的<code>/api</code>开头的请求都会被代理，包括头部<code>Accept</code>是<code>text/html</code>的请求，和默认的配置<code>proxy</code>不一样。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  // ...</div><div class="line">  &quot;proxy&quot;: &#123;</div><div class="line">    // 代理以 /api 开头的请求</div><div class="line">    &quot;/api&quot;: &#123;</div><div class="line">      &quot;target&quot;: &quot;&lt;url_1&gt;&quot;,</div><div class="line">      &quot;ws&quot;: true</div><div class="line">      // ...</div><div class="line">    &#125;,</div><div class="line">    // 代理以 /foo 开头的请求</div><div class="line">    &quot;/foo&quot;: &#123;</div><div class="line">      &quot;target&quot;: &quot;&lt;url_2&gt;&quot;,</div><div class="line">      &quot;ssl&quot;: true,</div><div class="line">      &quot;pathRewrite&quot;: &#123;   // 接口重写</div><div class="line">        &quot;^/foo&quot;: &quot;/foo/beta&quot;</div><div class="line">      &#125;</div><div class="line">      // ...</div><div class="line">    &#125;,</div><div class="line">    // 代理 /bar/abc.html 而不是 /bar/sub/def.html</div><div class="line">    &quot;/bar/[^/]*[.]html&quot;: &#123;</div><div class="line">      &quot;target&quot;: &quot;&lt;url_3&gt;&quot;,</div><div class="line">      // ...</div><div class="line">    &#125;,</div><div class="line">    // 代理 /baz/abc.html 和 /baz/sub/def.html</div><div class="line">    &quot;/baz/.*/.*[.]html&quot;: &#123;</div><div class="line">      &quot;target&quot;: &quot;&lt;url_4&gt;&quot;</div><div class="line">      // ...</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>支持WebSocket的代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  // ...</div><div class="line">  &quot;proxy&quot;: &#123;</div><div class="line">    &quot;/socket&quot;: &#123;</div><div class="line">      // 代理的目标websocket服务器</div><div class="line">      &quot;target&quot;: &quot;ws://&lt;socket_url&gt;&quot;,</div><div class="line">      // 标记这是webSocket请求</div><div class="line">      &quot;ws&quot;: true</div><div class="line">      // ...</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="启动HTTPS"><a href="#启动HTTPS" class="headerlink" title="启动HTTPS"></a>启动HTTPS</h3><ul>
+<li>Windows：<code>set HTTPS=true&amp;&amp;npm start</code></li>
+<li>Linux,macOS：<code>HTTPS=true npm start</code></li>
+</ul>
+<h3 id="在单独的环境中（隔离）开发组件"><a href="#在单独的环境中（隔离）开发组件" class="headerlink" title="在单独的环境中（隔离）开发组件"></a>在单独的环境中（隔离）开发组件</h3><p>通常，在一个应用程序中，你有很多的UI组件，而且每个组件都有很多不同的状态。 例如，一个简单的按钮组件可能具有以下状态：</p>
+<ul>
+<li>正常的状态下，仅展示文本标签。</li>
+<li>有禁用的模式</li>
+<li>有一个loading状态</li>
+</ul>
+<p>通常，如果不单独跑各个状态的组件，很难一次性看到这些状态。</p>
+<p><code>create-react-app</code>不包含这些开发工具，需要使用第三方插件，来实现同时查看一个组件的所有状态。工具有：</p>
+<ul>
+<li><p><a href="https://storybook.js.org/" target="_blank" rel="external">Storybook for React</a> (<a href="https://github.com/storybooks/storybook" target="_blank" rel="external">source</a>) </p>
+<p>首先，全局安装<code>@storybook/cli</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g @storybook/cli</div></pre></td></tr></table></figure>
+<p>之后，在根目录执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getstorybook</div></pre></td></tr></table></figure>
+<p>之后会自动安装以来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">➜  testReact git:(master) ✗ getstorybook</div><div class="line"></div><div class="line"> getstorybook - the simplest way to add a storybook to your project.</div><div class="line"></div><div class="line"> • Detecting project type. ✓</div><div class="line"> • Adding storybook support to your &quot;Create React App&quot; based project. ✓</div><div class="line"> • Preparing to install dependencies. ✓</div><div class="line"></div><div class="line">yarn install v1.2.1</div><div class="line">[1/4] 🔍  Resolving packages...</div><div class="line">[2/4] 🚚  Fetching packages...</div><div class="line">[3/4] 🔗  Linking dependencies...</div><div class="line">....</div><div class="line"></div><div class="line">✨  Done in 21.32s.</div><div class="line"></div><div class="line"> • Installing dependencies. ✓</div><div class="line"></div><div class="line">To run your storybook, type:</div><div class="line"></div><div class="line">   yarn run storybook</div><div class="line"></div><div class="line">For more information visit: https://storybook.js.org</div></pre></td></tr></table></figure>
+<p>提示你可以通过<code>yarn run storybook</code>来启动<code>storybook</code>。</p>
+</li>
+<li><p><a href="https://react-styleguidist.js.org/" target="_blank" rel="external">React Styleguidist</a> (<a href="https://github.com/styleguidist/react-styleguidist" target="_blank" rel="external">source</a>) </p>
+</li>
+</ul>
+<p>这些工具可以单独部署，这样子团队中的其他人就可以直接查看组件的各个状态，而不需要启动服务器。</p>
+<h3 id="默认支持渐进式Web应用"><a href="#默认支持渐进式Web应用" class="headerlink" title="默认支持渐进式Web应用"></a>默认支持渐进式Web应用</h3><p> <code>create-react-app</code>创建的项目默认就会支持 [渐进式web应用(PWA)] ，会使用 <a href="https://developers.google.com/web/fundamentals/getting-started/primers/service-workers" target="_blank" rel="external">service workers</a> 实现 <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network" target="_blank" rel="external">缓存优先策略</a> 来优化用户再次访问应用的速度。什么是service workers?</p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/service-workerss-falling-back-to-network.png" alt="service-worker"></p>
+<p><img src="http://oco9w3mgp.bkt.clouddn.com/from-serviceWorkerwhats-new-in-create-react-app-03.png" alt="from serviceWorker"></p>
+<p>当然，你也可以通过设置默认不开启这个特性，但是如果你在开发新的应用，推荐使用，特别在移动端Android设备上，能加速Web App的启动。</p>
+<p>已缓存的项目，如果想禁用<code>service-worker</code>，可以直接调用<code>unregister</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; unregister &#125; <span class="keyword">from</span> <span class="string">'./registerServiceWorker'</span>;</div></pre></td></tr></table></figure>
+<h3 id="客户端路由"><a href="#客户端路由" class="headerlink" title="客户端路由"></a>客户端路由</h3><p>如果客户端使用的是HTML5的<code>pushState history API</code>，许多静态资源文件请求将会失败。比如，请求页面<code>/todos/42</code>，开发服务器会运行很好，但是生产环境将会失败。因为后台程序并没有配置<code>/todos/42</code>这个路由，会返回404。</p>
+<p>NODE的解决方案：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.get( '/api/*' , ()=&gt;&#123; // .... &#125; )</span></div><div class="line">app.get(<span class="string">'/*'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">   res.sendFile(path.join(__dirname, <span class="string">'build'</span>, <span class="string">'index.html'</span>));</div><div class="line"> &#125;);</div></pre></td></tr></table></figure>
+<h3 id="打包到相对路径"><a href="#打包到相对路径" class="headerlink" title="打包到相对路径"></a>打包到相对路径</h3><p>默认的<code>create-react-app</code>会讲打包的默认路径设置为服务器的根目录<code>/</code>。</p>
+<p>要覆盖默认的设置，需要在<code>package.json</code>中，设置<code>homepage</code>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">"homepage": "http://kf.netease.com/index",</div></pre></td></tr></table></figure>
+<p>设置之后，<code>create-react-app</code>就知道了项目的根目录是：<code>/index</code>。</p>
+<p>之后生成的html文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">href</span>=<span class="string">"/index/favicon.ico"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"/index/static/css/main.6cfcf8f6.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/index/static/js/main.4dc8f75a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;create-react-app使用笔记&quot;&gt;&lt;a href=&quot;#create-react-app使用笔记&quot; class=&quot;headerlink&quot; title=&quot;create-react-app使用笔记&quot;&gt;&lt;/a&gt;create-react-app使用笔记&lt;/h2&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>基于进程对象process将日志、错误写入不同文件</title>
@@ -344,7 +605,7 @@
     <updated>2017-01-13T04:02:52.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="当display-table-cell的元素设置了position-absolute失效的bug"><a href="#当display-table-cell的元素设置了position-absolute失效的bug" class="headerlink" title="当display-table-cell的元素设置了position-absolute失效的bug"></a>当display-table-cell的元素设置了position-absolute失效的bug</h2><p>问题复现：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>01 Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">            #banner &#123;</div><div class="line">              position: relative;</div><div class="line">              display: table-cell;</div><div class="line">              width: 200px;</div><div class="line">              height: 200px;</div><div class="line">              overflow: hidden;</div><div class="line">              text-align: center;</div><div class="line">              vertical-align: middle;</div><div class="line">              background-color: #f00;</div><div class="line">            &#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"banner"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"50"</span> <span class="attr">height</span>=<span class="string">"50"</span> <span class="attr">src</span>=<span class="string">"https://lh3.googleusercontent.com/-aVJFt11BsXk/AAAAAAAAAAI/AAAAAAAAAAA/AKB_U8u7r4-EjGt5Fx6T-2ESqGLFt4xfxQ/s32-c-mo/photo.jpg"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>01 Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">            <span class="selector-id">#banner</span> &#123;</div><div class="line">              <span class="attribute">position</span>: relative;</div><div class="line">              <span class="attribute">display</span>: table-cell;</div><div class="line">              <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">              <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">              <span class="attribute">overflow</span>: hidden;</div><div class="line">              <span class="attribute">text-align</span>: center;</div><div class="line">              <span class="attribute">vertical-align</span>: middle;</div><div class="line">              <span class="attribute">background-color</span>: <span class="number">#f00</span>;</div><div class="line">            &#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"banner"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"50"</span> <span class="attr">height</span>=<span class="string">"50"</span> <span class="attr">src</span>=<span class="string">"https://lh3.googleusercontent.com/-aVJFt11BsXk/AAAAAAAAAAI/AAAAAAAAAAA/AKB_U8u7r4-EjGt5Fx6T-2ESqGLFt4xfxQ/s32-c-mo/photo.jpg"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>预览效果：</p>
 <p><img src="http://oco9w3mgp.bkt.clouddn.com/display-cell-relative.jpeg" alt="display-cell-relative"></p>
 <p>但是当把<code>#banner</code>的postion属性设置成<code>absolute</code>时，display:table-cell就失效了，#banner就变回了普通的display:div元素了。</p>
@@ -963,7 +1224,7 @@
     <updated>2016-10-31T06:29:10.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="position为relative的table-cell和其postion为absolute的子元素定位的bug"><a href="#position为relative的table-cell和其postion为absolute的子元素定位的bug" class="headerlink" title="position为relative的table-cell和其postion为absolute的子元素定位的bug"></a>position为relative的table-cell和其postion为absolute的子元素定位的bug</h2><p>考虑如下内容：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">  table &#123; margin: 200px; &#125;</div><div class="line">  .td &#123; position: relative; width: 100px; height: 100px; background-color: #f00; &#125;</div><div class="line">  .absolute &#123; position: absolute; left: -20px; top: 0; &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"td"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"absolute"</span>&gt;</span>这是内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">  <span class="selector-tag">table</span> &#123; <span class="attribute">margin</span>: <span class="number">200px</span>; &#125;</div><div class="line">  <span class="selector-class">.td</span> &#123; <span class="attribute">position</span>: relative; <span class="attribute">width</span>: <span class="number">100px</span>; <span class="attribute">height</span>: <span class="number">100px</span>; <span class="attribute">background-color</span>: <span class="number">#f00</span>; &#125;</div><div class="line">  <span class="selector-class">.absolute</span> &#123; <span class="attribute">position</span>: absolute; <span class="attribute">left</span>: -<span class="number">20px</span>; <span class="attribute">top</span>: <span class="number">0</span>; &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"td"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"absolute"</span>&gt;</span>这是内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>本该好好的按下面的显示：</p>
 <p><img src="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg" alt="http://oco9w3mgp.bkt.clouddn.com/blog_images/table-cell-absolute-bug01.jpeg"></p>
 <p>可是，在firefox30版本一下( chrome,ie8910，opera38.0正常，貌似就ff有这个痛 )，就是下面的样子了：</p>
@@ -1238,46 +1499,6 @@
     
       &lt;h3 id=&quot;什么是HTTP协议&quot;&gt;&lt;a href=&quot;#什么是HTTP协议&quot; class=&quot;headerlink&quot; title=&quot;什么是HTTP协议&quot;&gt;&lt;/a&gt;什么是HTTP协议&lt;/h3&gt;&lt;hr&gt;
 &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>js的垃圾回收机制</title>
-    <link href="http://www.maotingfeng.me/2016/09/11/js%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/"/>
-    <id>http://www.maotingfeng.me/2016/09/11/js的垃圾回收机制/</id>
-    <published>2016-09-11T11:02:22.000Z</published>
-    <updated>2016-09-11T11:24:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="js的垃圾回收机制-Garbage-Collecation"><a href="#js的垃圾回收机制-Garbage-Collecation" class="headerlink" title="js的垃圾回收机制(Garbage Collecation)"></a>js的垃圾回收机制(Garbage Collecation)</h2><p>函数中的局部变量的生命周期：局部变量只在函数执行的过程中存在。而在这个过程中，会为局部变量在栈（或堆）内存上分配相应的空间，以便存储它们的值。然后在函数中使用这些变量，直至函数执行结束。此时，局部变量就没有存在的必要了，因此可以释放它们的内存以供将来使用。在这种情况下，很容易判断变量是否还有存在的必要；但并非所有情况下都这么容易就能得出结论。垃圾回收器必须跟踪哪个变量有用，哪个变量没用，对于不再有用的变量打上标记，以备将来收回其占用的内存。用于标识无用变量的策略可能会因实现而异，但具体到浏览器中的实现，则通常有两个策略。</p>
-<ol>
-<li>标记清除</li>
-</ol>
-<p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在函数中声明一个变量，就将这个变量标记为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为“离开环境”。垃圾回收器在运行的时候会给存储在内存中的所有变量都加上标记（当然，可以使用任何标记方式）。然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记（<strong>闭包</strong>）。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后，垃圾回收器完成内存清除工作，销毁那些带标记的值并回收它们所占用的内存空间。</p>
-<p>到2008年为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。</p>
-<ol>
-<li>引用计数</li>
-</ol>
-<p>引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是1。如果同一个值又被赋给另一个变量，则该值的引用次数加1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数减1。当这个值的引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其占用的内存空间回收回来。这样，当垃圾回收器下次再运行时，它就会释放那些引用次数为0的值所占用的内存。</p>
-<p>Netscape Navigator3是最早使用引用计数策略的浏览器，但很快它就遇到一个严重的问题：循环引用。循环引用指的是对象A中包含一个指向对象B的指针，而对象B中也包含一个指向对象A的引用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> a = &#123;&#125;;</div><div class="line">  <span class="keyword">var</span> b = &#123;&#125;;</div><div class="line">  a.pro = b;</div><div class="line">  b.pro = a;</div><div class="line">&#125;</div><div class="line">fn();</div></pre></td></tr></table></figure>
-<p>以上代码a和b的引用次数都是2，fn()执行完毕后，两个对象都已经离开环境，在标记清除方式下是没有问题的，但是在引用计数策略下，因为a和b的引用次数不为0，所以不会被垃圾回收器回收内存，如果fn函数被大量调用，就会造成<strong>内存泄露</strong>。</p>
-<p>我们知道，IE中有一部分对象并不是原生js对象。例如，其<strong>DOM和BOM</strong>中的对象就是使用C++以COM对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使<strong>IE的js引擎采用标记清除策略</strong>来实现，但js访问的<strong>COM对象依然是基于引用计数策略</strong>的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(<span class="string">"some_element"</span>);</div><div class="line"><span class="keyword">var</span> myObject = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">myObject.e = element;</div><div class="line">element.o = myObject;</div></pre></td></tr></table></figure>
-<p>这个例子在一个DOM元素（element)与一个原生js对象（myObject)之间创建了循环引用。其中，变量myObject有一个名为element的属性指向element对象；而变量element也有一个属性名为o回指myObject。由于存在这个循环引用，即使例子中的DOM从页面中移除，它也永远不会被回收。</p>
-<p>为了避免类似这样的循环引用问题，最好是在不使用它们的时候手工断开原生js对象与DOM元素之间的连接：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">myObject.element = <span class="literal">null</span>;</div><div class="line">element.o = <span class="literal">null</span>;</div></pre></td></tr></table></figure>
-<p>将变量设置为null意味着切断变量与它此前引用的值之间的连接。当垃圾回收器下次运行时，就会删除这些值并回收它们占用的内存。</p>
-<blockquote>
-<p>原博地址：<a href="http://www.cnblogs.com/dolphinX/p/3348468.html" target="_blank" rel="external">http://www.cnblogs.com/dolphinX/p/3348468.html</a></p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;js的垃圾回收机制-Garbage-Collecation&quot;&gt;&lt;a href=&quot;#js的垃圾回收机制-Garbage-Collecation&quot; class=&quot;headerlink&quot; title=&quot;js的垃圾回收机制(Garbage Collecation)&quot;&gt;&lt;/
     
     </summary>
     
